@@ -18,6 +18,8 @@ public class AddAlarm extends AppCompatActivity {
         setContentView(R.layout.activity_add_alarm);
         tPicker = (TimePicker) findViewById(R.id.timePicker);
         calendar = Calendar.getInstance();
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        int minute = calendar.get(Calendar.MINUTE);
     }
 }
 
