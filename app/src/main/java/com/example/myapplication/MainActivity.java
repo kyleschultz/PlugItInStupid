@@ -6,8 +6,9 @@ import android.media.Image;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.content.Intent;
+import android.view.View;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -15,9 +16,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         ImageView button = findViewById(R.id.addAlarm);
-        //button.setOnClickListener(startActivity(Intent(this, AddAlarm::class.java)));
+        button.setOnClickListener(this);
     }
 
-
+    @Override
+    public void onClick(View v) {
+        Intent myintent = new Intent(MainActivity.this, AddAlarm.class);
+        startActivity(myintent);
+    }
 
 }
