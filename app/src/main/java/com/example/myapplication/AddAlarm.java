@@ -17,7 +17,7 @@ public class AddAlarm extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_alarm);
         tPicker = (TimePicker) findViewById(R.id.timePicker);
-        calendar = calendar.getInstance();
+        calendar = Calendar.getInstance();
     }
 }
 
