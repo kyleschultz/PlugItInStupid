@@ -6,4 +6,80 @@
     android:layout_height="match_parent"
     tools:context=".MusicSelection">
 
+    <RadioButton
+        android:id="@+id/ringtone4"
+        android:layout_width="228dp"
+        android:layout_height="72dp"
+        android:text="Ringtone4"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.229"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.848" />
+
+    <RadioButton
+        android:id="@+id/ringtone2"
+        android:layout_width="228dp"
+        android:layout_height="72dp"
+        android:text="Ringtone2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.229"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.499" />
+
+    <RadioButton
+        android:id="@+id/ringtone1"
+        android:layout_width="228dp"
+        android:layout_height="72dp"
+        android:text="Ringtone1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.229"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.321" />
+
+    <RadioButton
+        android:id="@+id/radioButton3"
+        android:layout_width="228dp"
+        android:layout_height="72dp"
+        android:text="Ringtone3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.229"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.675" />
+
+    <TextView
+        android:id="@+id/MusicSelectTitle"
+        android:layout_width="326dp"
+        android:layout_height="119dp"
+        android:text="Select Ringtone"
+        android:textColor="#FF9800"
+        android:textSize="45sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.068" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="71dp"
+        android:layout_height="58dp"
+        android:text="OK"
+        android:textColor="#4CAF50"
+        android:textSize="40sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.9"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.952" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
