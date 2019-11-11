@@ -3,10 +3,14 @@ package com.example.myapplication;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import java.util.Calendar;
+import android.content.Intent;
+import android.widget.ImageView;
+import android.view.View;
 
-public class AddAlarm extends AppCompatActivity {
+public class AddAlarm extends AppCompatActivity implements View.OnClickListener {
 
     private TimePicker tPicker;
     private int hour;
@@ -18,8 +22,14 @@ public class AddAlarm extends AppCompatActivity {
         setContentView(R.layout.activity_add_alarm);
         tPicker = (TimePicker) findViewById(R.id.timePicker);
         calendar = Calendar.getInstance();
-        int hour = calendar.get(Calendar.HOUR_OF_DAY);
-        int minute = calendar.get(Calendar.MINUTE);
+        TextView button = findViewById(R.id.textView);
+        button.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        Intent myIntent = new Intent(this, AlarmReceiver.class);
+
     }
 }
 

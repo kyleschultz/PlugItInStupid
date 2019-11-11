@@ -7,9 +7,11 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.content.Intent;
 import android.view.View;
+import android.app.AlarmManager;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
+    AlarmManager alarmManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
