@@ -24,11 +24,19 @@ public class AddAlarm extends AppCompatActivity implements View.OnClickListener 
         calendar = Calendar.getInstance();
         TextView button = findViewById(R.id.textView);
         button.setOnClickListener(this);
+        TextView cancel = findViewById(R.id.textView2);
+        cancel.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-        Intent myIntent = new Intent(this, AlarmReceiver.class);
+        if(v.getId() == R.id.textView){
+            Intent myIntent = new Intent(this, AlarmReceiver.class);
+        }
+        else if(v.getId() == R.id.textView2){
+            Intent myIntent = new Intent(this, MainActivity.class);
+            startActivity(myIntent);
+        }
 
     }
 }
