@@ -24,12 +24,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ImageView button = findViewById(R.id.addAlarm);
         button.setOnClickListener(this);
 
+        ImageView timerButton = findViewById(R.id.countdownTimer);
+        timerButton.setOnClickListener(this);
+
     }
 
     @Override
     public void onClick(View v) {
         Intent myintent = new Intent(MainActivity.this, AddAlarm.class);
         startActivity(myintent);
+
+        Intent timerIntent = new Intent(MainActivity.this, TimerScreen.class);
+        startActivity(timerIntent);
     }
 
 }
