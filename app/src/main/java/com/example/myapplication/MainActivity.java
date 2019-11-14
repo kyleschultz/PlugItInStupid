@@ -21,9 +21,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         this.context = this;
-        ImageView button = findViewById(R.id.addAlarm);
-        button.setOnClickListener(this);
-
+        ImageView addButton = findViewById(R.id.addAlarm);
+        addButton.setOnClickListener(this);
+        ImageView toneButton = findViewById(R.id.imageView3);
+        toneButton.setOnClickListener(this);
         ImageView timerButton = findViewById(R.id.countdownTimer);
         timerButton.setOnClickListener(this);
 
@@ -31,11 +32,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        Intent myintent = new Intent(MainActivity.this, AddAlarm.class);
-        startActivity(myintent);
+        if(v.getId() == R.id.addAlarm) {
+            Intent myintent = new Intent(MainActivity.this, AddAlarm.class);
+            startActivity(myintent);
+        }
+        else if(v.getId() == R.id.countdownTimer){
+            Intent myintent = new Intent(MainActivity.this, TimerScreen.class);
+            startActivity(myintent);
+        }
+        else if(v.getId() == R.id.imageView3){
+            Intent myintent = new Intent(MainActivity.this, MusicSelection.class);
+            startActivity(myintent);
+        }
 
-        Intent timerIntent = new Intent(MainActivity.this, TimerScreen.class);
-        startActivity(timerIntent);
     }
 
 }

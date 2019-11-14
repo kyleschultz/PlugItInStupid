@@ -16,6 +16,7 @@ public class AddAlarm extends AppCompatActivity implements View.OnClickListener 
     private int hour;
     private int minute;
     private Calendar calendar;
+    private AlarmReceiver alarm;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,12 +27,14 @@ public class AddAlarm extends AppCompatActivity implements View.OnClickListener 
         button.setOnClickListener(this);
         TextView cancel = findViewById(R.id.textView2);
         cancel.setOnClickListener(this);
+
     }
 
     @Override
     public void onClick(View v) {
         if(v.getId() == R.id.textView){
-            Intent myIntent = new Intent(this, AlarmReceiver.class);
+            //Intent myIntent = new Intent(this, AlarmReceiver.class);
+            alarm = new AlarmReceiver();
         }
         else if(v.getId() == R.id.textView2){
             Intent myIntent = new Intent(this, MainActivity.class);
