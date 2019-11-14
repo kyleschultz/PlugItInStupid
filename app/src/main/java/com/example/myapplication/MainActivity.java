@@ -30,11 +30,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ImageView toneButton = findViewById(R.id.imageView3);
         toneButton.setOnClickListener(this);
 
-        // Count-down timer
+        // Countdown timer
         ImageView timerButton = findViewById(R.id.countdownTimer);
         timerButton.setOnClickListener(this);
 
-        // Time-zone
+        // Timezone
         Button tzButton = findViewById(R.id.timeZoneButton);
         tzButton.setOnClickListener(this);
     }
@@ -47,19 +47,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(myintent);
         }
 
-        // Count-down timer
+        // Countdown timer
         else if(v.getId() == R.id.countdownTimer){
             Intent myintent = new Intent(MainActivity.this, TimerScreen.class);
             startActivity(myintent);
         }
 
-        // Ring-tone
+        // Ringtone
         else if(v.getId() == R.id.imageView3){
             Intent myintent = new Intent(MainActivity.this, MusicSelection.class);
             startActivity(myintent);
         }
 
-        // Time-zone
+        // Timezone
         else if(v.getId() == R.id.timeZoneButton){
             Intent myintent = new Intent(MainActivity.this, ChangeTimeZone.class);
             startActivity(myintent);
