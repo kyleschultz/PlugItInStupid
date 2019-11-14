@@ -2,10 +2,12 @@ package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.icu.text.SimpleDateFormat;
+import android.icu.util.Calendar;
+import android.icu.util.TimeZone;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
-import java.util.TimeZone;
 
 public class ChangeTimeZone extends AppCompatActivity implements View.OnClickListener{
 
@@ -19,10 +21,13 @@ public class ChangeTimeZone extends AppCompatActivity implements View.OnClickLis
         button1.setOnClickListener(this);
     }
     public void onClick(View v) {
-        /*
+        Calendar calendar = Calendar.getInstance();
+        /* Setting system timezone is not possible - maybe need Calendar object 
         if(v.getId() == R.id.timeButton1) {
-            TimeZone.setDefault(TimeZone.getTimeZone("GMT+3"));
+            SimpleDateFormat store = new SimpleDateFormat("dd-MMM-yyyy hh:mm:ss z");
+            store.setTimeZone(TimeZone.getTimeZone("US/East"));
         }
-        */
+         */
+
     }
 }
