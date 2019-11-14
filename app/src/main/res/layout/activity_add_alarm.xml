@@ -7,66 +7,6 @@
     tools:context=".AddAlarm">
 
 
-    <CheckBox
-        android:id="@+id/checkBox3"
-        android:layout_width="110dp"
-        android:layout_height="43dp"
-        android:text="Tuesday"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.053"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/timePicker"
-        app:layout_constraintVertical_bias="0.915" />
-
-    <CheckBox
-        android:id="@+id/checkBox4"
-        android:layout_width="110dp"
-        android:layout_height="43dp"
-        android:text="Wednesday"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.055"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.976" />
-
-    <CheckBox
-        android:id="@+id/checkBox5"
-        android:layout_width="110dp"
-        android:layout_height="43dp"
-        android:text="Thursday"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.451"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.791" />
-
-    <CheckBox
-        android:id="@+id/checkBox6"
-        android:layout_width="110dp"
-        android:layout_height="43dp"
-        android:text="Friday"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.451"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/timePicker"
-        app:layout_constraintVertical_bias="0.853" />
-
-    <CheckBox
-        android:id="@+id/checkBox7"
-        android:layout_width="110dp"
-        android:layout_height="43dp"
-        android:text="Saturday"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.451"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/timePicker"
-        app:layout_constraintVertical_bias="0.915" />
-
     <TimePicker
         android:id="@+id/timePicker"
         android:layout_width="wrap_content"
@@ -83,49 +23,90 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="96dp"
-        android:layout_height="114dp"
+        android:layout_width="411dp"
+        android:layout_height="68dp"
         android:layout_below="@+id/timePicker"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
+        android:background="#72AC62"
+        android:gravity="center"
         android:text="Add"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="40sp"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.882"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.709" />
+        app:layout_constraintVertical_bias="0.898" />
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="124dp"
-        android:layout_height="105dp"
+        android:layout_width="412dp"
+        android:layout_height="64dp"
         android:layout_below="@+id/timePicker"
         android:layout_alignParentStart="@+id/timePicker"
         android:layout_alignParentLeft="@+id/timePicker"
+        android:background="#E6714C"
+        android:gravity="center"
         android:text="Cancel"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="40sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.944"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:layout_constraintVertical_bias="0.354" />
+        app:layout_constraintVertical_bias="0.909" />
 
     <CheckBox
-        android:id="@+id/checkBox"
+        android:id="@+id/checkBox6"
         android:layout_width="110dp"
         android:layout_height="43dp"
-        android:text="Sunday"
+        android:text="Friday"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.052"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/timePicker"
+        app:layout_constraintVertical_bias="0.691" />
+
+    <CheckBox
+        android:id="@+id/checkBox7"
+        android:layout_width="110dp"
+        android:layout_height="43dp"
+        android:text="Saturday"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.946"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/timePicker"
+        app:layout_constraintVertical_bias="0.691" />
+
+    <CheckBox
+        android:id="@+id/checkBox3"
+        android:layout_width="110dp"
+        android:layout_height="43dp"
+        android:text="Tuesday"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/timePicker"
+        app:layout_constraintVertical_bias="0.603" />
+
+    <CheckBox
+        android:id="@+id/checkBox4"
+        android:layout_width="110dp"
+        android:layout_height="43dp"
+        android:text="Wednesday"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.946"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.789" />
+        app:layout_constraintVertical_bias="0.603" />
 
     <CheckBox
         android:id="@+id/checkBox2"
@@ -137,7 +118,31 @@
         app:layout_constraintHorizontal_bias="0.053"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.851" />
+        app:layout_constraintVertical_bias="0.603" />
+
+    <CheckBox
+        android:id="@+id/checkBox"
+        android:layout_width="110dp"
+        android:layout_height="43dp"
+        android:text="Sunday"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.053"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.776" />
+
+    <CheckBox
+        android:id="@+id/checkBox5"
+        android:layout_width="110dp"
+        android:layout_height="43dp"
+        android:text="Thursday"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.053"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.691" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
