@@ -1,8 +1,7 @@
 package com.example.myapplication;
 
+// Android imports
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.media.Image;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -15,6 +14,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     AlarmManager alarmManager;
     Context context;
+    // 'Listen' for clicks
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tzButton.setOnClickListener(this);
     }
 
+    // Controls what happens upon clicking on features
     @Override
     public void onClick(View v) {
         // Add alarm
