@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+
 import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -16,7 +17,7 @@ public class AddAlarm extends AppCompatActivity implements View.OnClickListener 
     private int hour;
     private int minute;
     private Calendar calendar;
-    private AlarmReceiver alarm;
+    private AlarmState state;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,14 +34,17 @@ public class AddAlarm extends AppCompatActivity implements View.OnClickListener 
     @Override
     public void onClick(View v) {
         if(v.getId() == R.id.textView){
-            //Intent myIntent = new Intent(this, AlarmReceiver.class);
-            alarm = new AlarmReceiver();
+            System.out.println("Clicked add");
         }
         else if(v.getId() == R.id.textView2){
             Intent myIntent = new Intent(this, MainActivity.class);
             startActivity(myIntent);
         }
 
+    }
+
+    public void setState(){
+        this.state = new CreateState();
     }
 }
 
