@@ -7,12 +7,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.content.Intent;
 import android.view.View;
-import android.app.AlarmManager;
 import android.content.Context;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    AlarmManager alarmManager;
     Context context;
     // 'Listen' for clicks
     @Override
@@ -20,8 +18,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         this.context = this;
+        App.setContext(this.context);
         // Add alarm
         ImageView addButton = findViewById(R.id.addAlarm);
         addButton.setOnClickListener(this);
