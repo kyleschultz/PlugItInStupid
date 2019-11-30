@@ -24,10 +24,10 @@ public class AlarmReceiver extends BroadcastReceiver {
         //Integer get_your_whale_choice = intent.getExtras().getInt("whale_choice");
 
         //Log.e("The whale choice is ", get_your_whale_choice.toString());
-
+        Context main = App.getContext();
         // create an intent to the ringtone service
         Intent notify = new Intent(context, AlarmNotification.class);
-        context.startActivity(notify);
+        main.startActivity(notify);
 
 
 
