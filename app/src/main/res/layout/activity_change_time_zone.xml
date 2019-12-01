@@ -10,6 +10,7 @@
         android:id="@+id/saveButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/radioGroup6"
         android:text="Save"
         android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -35,54 +36,63 @@
 
 
     <RadioGroup
-
-        android:id="@+id/radioGroup3"
-        android:layout_width="243dp"
-        android:layout_height="405dp"
+        android:id="@+id/radioGroup6"
+        android:layout_width="241dp"
+        android:layout_height="384dp"
         android:layout_marginStart="15dp"
         android:layout_marginLeft="15dp"
         android:layout_marginEnd="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginBottom="124dp"
+        android:scaleX="1.3"
+        android:scaleY="1.3"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.545"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView6">
+        app:layout_constraintTop_toBottomOf="@+id/textView6"
+        app:layout_constraintVertical_bias="0.6">
 
         <RadioButton
             android:id="@+id/timeButton1"
             android:layout_width="251dp"
             android:layout_height="50dp"
+            android:layout_margin="5dp"
             android:text="Eastern Standard Time" />
 
         <RadioButton
             android:id="@+id/timeButton2"
             android:layout_width="251dp"
             android:layout_height="50dp"
+            android:layout_margin="5dp"
             android:text="Central Standard Time" />
 
         <RadioButton
             android:id="@+id/timeButton3"
             android:layout_width="251dp"
             android:layout_height="50dp"
+            android:layout_margin="5dp"
             android:text="Mountain Standard Time" />
 
         <RadioButton
             android:id="@+id/timeButton4"
             android:layout_width="251dp"
             android:layout_height="50dp"
+            android:layout_margin="5dp"
             android:text="Pacific Standard Time" />
 
         <RadioButton
             android:id="@+id/timeButton5"
             android:layout_width="251dp"
             android:layout_height="50dp"
+            android:layout_margin="5dp"
             android:text="Alaska Standard Time" />
 
         <RadioButton
             android:id="@+id/timeButton6"
             android:layout_width="251dp"
             android:layout_height="50dp"
+            android:layout_margin="5dp"
             android:text="Hawaii-Aleutian Standard Time" />
     </RadioGroup>
 
