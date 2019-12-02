@@ -28,6 +28,7 @@ public class AddAlarm extends AppCompatActivity implements View.OnClickListener 
     AlarmManager alarmManager;
     Context context;
     private ArrayList<Integer> weekdays;
+    Bundle mBundle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +43,8 @@ public class AddAlarm extends AppCompatActivity implements View.OnClickListener 
         TextView cancel = findViewById(R.id.textView2);
         cancel.setOnClickListener(this);
         weekdays = new ArrayList<Integer>();
+        mBundle = new Bundle();
+
 
     }
 
@@ -106,10 +109,26 @@ public class AddAlarm extends AppCompatActivity implements View.OnClickListener 
                     state.handle(alarmManager, pending, calendar, repeating);
                 }
             }
+            String hour_string = String.valueOf(hour);
+            String minute_string = String.valueOf(minute);
+            String amPm = "";
+            // convert 24-hour time to 12-hour time
+            if (hour > 12) {
+                hour_string = String.valueOf(hour - 12);
+                amPm = "pm";
+            }
+            else{
+                amPm = "am";
+            }
 
+            if (minute < 10) {
+                minute_string = "0" + String.valueOf(minute);
+            }
             //alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pending);
-            System.out.println("Set alarm manager");
-            finish();
+            Intent main = new Intent(this, MainActivity.class);
+            mBundle.putString("time", hour_string + ":" + minute_string + amPm);
+            main.putExtras(mBundle);
+            startActivity(main);
         }
         else if(v.getId() == R.id.textView2){
             Intent myIntent = new Intent(this, MainActivity.class);
