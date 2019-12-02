@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.view.View;
 import android.app.AlarmManager;
 import android.content.Context;
+import java.util.ArrayList;
 
 public class AddAlarm extends AppCompatActivity implements View.OnClickListener {
 
@@ -26,6 +27,8 @@ public class AddAlarm extends AppCompatActivity implements View.OnClickListener 
     private AlarmState state;
     AlarmManager alarmManager;
     Context context;
+    private ArrayList<Integer> weekdays;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +41,7 @@ public class AddAlarm extends AppCompatActivity implements View.OnClickListener 
         button.setOnClickListener(this);
         TextView cancel = findViewById(R.id.textView2);
         cancel.setOnClickListener(this);
+        weekdays = new ArrayList<Integer>();
 
     }
 
@@ -49,20 +53,61 @@ public class AddAlarm extends AppCompatActivity implements View.OnClickListener 
             hour = tPicker.getCurrentHour();
             minute = tPicker.getCurrentMinute();
             CheckBox sunday = findViewById(R.id.checkBox);
+            if(sunday.isChecked()){
+                weekdays.add(1);
+            }
             CheckBox monday = findViewById(R.id.checkBox2);
+            if(monday.isChecked()){
+                weekdays.add(2);
+            }
             CheckBox tuesday = findViewById(R.id.checkBox3);
+            if(tuesday.isChecked()){
+                weekdays.add(3);
+            }
             CheckBox wednesday = findViewById(R.id.checkBox4);
+            if(wednesday.isChecked()){
+                weekdays.add(4);
+            }
             CheckBox thursday = findViewById(R.id.checkBox5);
-            CheckBox firday = findViewById(R.id.checkBox6);
+            if(thursday.isChecked()){
+                weekdays.add(5);
+            }
+            CheckBox friday = findViewById(R.id.checkBox6);
+            if(friday.isChecked()) {
+                weekdays.add(6);
+            }
+            CheckBox saturday = findViewById(R.id.checkBox7);
+            if(saturday.isChecked()){
+                weekdays.add(7);
+            }
             System.out.println(tPicker.getCurrentHour() + ":" + tPicker.getCurrentMinute());
+            calendar.setTimeInMillis(System.currentTimeMillis());
             calendar.set(Calendar.HOUR_OF_DAY, tPicker.getCurrentHour());
             calendar.set(Calendar.MINUTE, tPicker.getCurrentMinute());
-            System.out.println(this.context);
-            Intent intent = new Intent(this, AlarmReceiver.class);
-            PendingIntent pending = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-            alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pending);
+            calendar.set(Calendar.SECOND, 0);
+            calendar.set(Calendar.MILLISECOND, 0);
+            //System.out.println(this.context);
+            this.state = new CreateState();
+            boolean repeating = false;
+            System.out.println(weekdays);
+            if (weekdays.size() == 0) {
+                Intent intent = new Intent(this.context, AlarmReceiver.class);
+                PendingIntent pending = PendingIntent.getBroadcast(this.context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                state.handle(alarmManager, pending, calendar, repeating);
+            }
+            else{
+                for(int i = 0; i < weekdays.size(); i++){
+                    repeating = true;
+                    calendar.set(Calendar.DAY_OF_WEEK, weekdays.get(i));
+                    Intent intent = new Intent(this.context, AlarmReceiver.class);
+                    PendingIntent pending = PendingIntent.getBroadcast(this.context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                    state.handle(alarmManager, pending, calendar, repeating);
+                }
+            }
+
+            //alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pending);
             System.out.println("Set alarm manager");
-            //finish();
+            finish();
         }
         else if(v.getId() == R.id.textView2){
             Intent myIntent = new Intent(this, MainActivity.class);
