@@ -3,6 +3,7 @@ package com.example.myapplication;
 // Android imports
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.LauncherActivity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.TypedValue;
@@ -17,10 +18,15 @@ import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     Context context;
+    private ArrayList<String> views;
+    LinearLayout wrapper;
+    private int id = 0;
     // 'Listen' for clicks
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,13 +50,46 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // Timezone
         Button tzButton = findViewById(R.id.timeZoneButton);
         tzButton.setOnClickListener(this);
+        wrapper = findViewById(R.id.AlarmLayout);
 
         Intent fromAlarm = getIntent();
         if(fromAlarm != null && fromAlarm.getExtras() != null){
             String timeValue = fromAlarm.getExtras().getString("time");
             System.out.println(timeValue);
+            views = App.getViews();
+            System.out.println("views" + views);
+
+            if(views.size() != 0){
+                for(String str : views){
+                    addAlarmTextView(str);
+                }
+            }
+            App.addToArrayList(timeValue);
             addAlarmTextView(timeValue);
         }
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState){
+
+        super.onRestoreInstanceState(savedInstanceState);
+
+        views = savedInstanceState.getStringArrayList("key");
+        System.out.println(views);
+        // Add this for-loop to restoring your list
+        for(String str : views){
+            addAlarmTextView(str);
+        }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState){
+        // Save the values you need from your textview into "outSTate" -object
+//        outState.putParcelableArrayList("key", toDoList);
+        super.onSaveInstanceState(outState);
+        outState.putStringArrayList("key", views);
+        System.out.println(views);
+
     }
 
     // Controls what happens upon clicking on features
@@ -83,7 +122,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void addAlarmTextView(String time){
-        LinearLayout wrapper = findViewById(R.id.AlarmLayout);
+        //LinearLayout wrapper = findViewById(R.id.AlarmLayout);
         wrapper.addView(createATextView(ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT, RelativeLayout.ALIGN_PARENT_RIGHT,
                 time.toString(), 24));
@@ -97,6 +136,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public TextView createATextView(int layout_widh, int layout_height, int align,
                                     String text, int fontSize){
         TextView textView_item_name = new TextView(this);
+        textView_item_name.setId(id);
+        id++;
         RelativeLayout.LayoutParams _params = new RelativeLayout.LayoutParams(
                 layout_widh, layout_height);
 
@@ -116,7 +157,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public Switch createSwitch(int layout_widh, int layout_height, int align,
                                String text, int fontSize){
         Switch onOff = new Switch(this);
+        onOff.setId(id);
+        id++;
         onOff.setText("On/Off");
+        onOff.setChecked(true);
         ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         onOff.setLayoutParams(lp);
         return onOff;
