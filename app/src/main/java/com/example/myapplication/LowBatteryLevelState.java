@@ -3,7 +3,7 @@ package com.example.myapplication;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 
-import java.util.Calendar;
+import android.icu.util.Calendar;
 
 public class LowBatteryLevelState implements AlarmState {
     public void handle(AlarmManager manager, PendingIntent intent, Calendar calendar, boolean repeating) {

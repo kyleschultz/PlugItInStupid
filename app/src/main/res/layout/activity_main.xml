@@ -81,23 +81,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/appTitle"
-        app:layout_constraintVertical_bias="0.607" >
-
-        <TextView
-            android:id="@+id/textView19"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="5:30pm"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:textSize="24sp" />
-
-        <Switch
-            android:id="@+id/switch11"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="On/Off"
-            android:checked="true"/>
-
-    </LinearLayout>
+        app:layout_constraintVertical_bias="0.607" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
