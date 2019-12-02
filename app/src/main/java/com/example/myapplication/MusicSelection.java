@@ -1,80 +1,92 @@
 package com.example.myapplication;
 
-import androidx.annotation.Nullable;
+
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
-import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
-import android.widget.ImageView;
+import android.widget.Button;
 import android.widget.RadioButton;
-import android.widget.TextView;
+import android.widget.RadioGroup;
+import android.widget.Toast;
 
 public class MusicSelection extends AppCompatActivity implements View.OnClickListener{
 
-    Context context;
-
+    private RadioGroup radioGroup;
+    private RadioButton r1, r2, r3, r4;
+    private Button b;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_music_selection);
 
-        this.context = this;
+        b = findViewById(R.id.saveButton);
+        b.setOnClickListener(this);
 
-        RadioButton ringtoneButton1 = findViewById(R.id.ringtone1);
-        ringtoneButton1.setOnClickListener(this);
+        radioGroup = findViewById(R.id.radioGroupMusic);
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
 
-        RadioButton ringtoneButton2= findViewById(R.id.ringtone2);
-        ringtoneButton2.setOnClickListener(this);
+                if(checkedId == R.id.musicButton1) {
+                    Toast t = Toast.makeText(getApplicationContext(), "beat it selected",
+                            Toast.LENGTH_SHORT);
 
-        RadioButton ringtoneButton3 = findViewById(R.id.radioButton3);
-        ringtoneButton3.setOnClickListener(this);
+                    t.setGravity(Gravity.FILL_HORIZONTAL, 10, 1500);
+                    t.show();
+                }
+                else if(checkedId == R.id.musicButton2) {
+                    Toast t = Toast.makeText(getApplicationContext(), "byob selected",
+                            Toast.LENGTH_SHORT);
+                    t.setGravity(Gravity.FILL_HORIZONTAL, 10, 1500);
+                    t.show();
+                }
+                else if(checkedId == R.id.musicButton3) {
+                    Toast t = Toast.makeText(getApplicationContext(), "pieces selected",
+                            Toast.LENGTH_SHORT);
+                    t.setGravity(Gravity.FILL_HORIZONTAL, 10, 1500);
+                    t.show();
+                }
+                else if(checkedId == R.id.musicButton4) {
+                    Toast t = Toast.makeText(getApplicationContext(), "toxicity selected",
+                            Toast.LENGTH_SHORT);
+                    t.setGravity(Gravity.FILL_HORIZONTAL, 10, 1500);
+                    t.show();
+                }
 
-        RadioButton ringtoneButton4 = findViewById(R.id.ringtone4);
-        ringtoneButton4.setOnClickListener(this);
-
-        TextView ok = findViewById(R.id.textView7);
-        ok.setOnClickListener(this);
+            }
+        });
     }
 
-
-    MediaPlayer mMediaPlayer;
-    MediaPlayer defaultPlayer = MediaPlayer.create(this, R.raw.byob);
-
-    // Controls what happens upon clicking on features
-
+    @Override
     public void onClick(View v) {
-        // Set ringtone 1
-        if (v.getId() == R.id.ringtone1) {
 
+        r1 = findViewById(R.id.musicButton1);
+        r2 = findViewById(R.id.musicButton2);
+        r3 = findViewById(R.id.musicButton3);
+        r4 = findViewById(R.id.musicButton4);
+
+
+        MediaPlayer mMediaPlayer;
+        mMediaPlayer = MediaPlayer.create(this, R.raw.byob);
+        int selectedId = radioGroup.getCheckedRadioButtonId();
+
+        if(selectedId == r1.getId()) {
+            mMediaPlayer = MediaPlayer.create(this, R.raw.beat_it);
+
+        }
+        else if(selectedId == r2.getId()) {
+            mMediaPlayer = MediaPlayer.create(this, R.raw.byob);
+
+        }
+        else if(selectedId == r3.getId()) {
+            mMediaPlayer = MediaPlayer.create(this, R.raw.pieces);
+        }
+        else if(selectedId == r4.getId()) {
             mMediaPlayer = MediaPlayer.create(this, R.raw.toxicity);
         }
 
-        // Set ringtone 2
-        else if (v.getId() == R.id.ringtone2) {
-
-            mMediaPlayer = MediaPlayer.create(this, R.raw.beat_it);
-        }
-
-        // Set ringtone 3
-        else if (v.getId() == R.id.radioButton3) {
-
-            mMediaPlayer = MediaPlayer.create(this, R.raw.byob);
-        }
-
-        // Set ringtone 4
-        else if (v.getId() == R.id.ringtone4) {
-
-            mMediaPlayer = MediaPlayer.create(this, R.raw.pieces);
-        }
-
-        // Ok is clicked
-        else if (v.getId() == R.id.textView7) {
-            Intent myintent = new Intent(MusicSelection.this, MainActivity.class);
-            startActivity(myintent);
-
-        }
     }
 }

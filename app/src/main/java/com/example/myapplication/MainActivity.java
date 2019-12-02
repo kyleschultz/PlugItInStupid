@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         addButton.setOnClickListener(this);
 
         // Ringtone
-        ImageView toneButton = findViewById(R.id.imageView3);
+        ImageView toneButton = findViewById(R.id.select_ringtone);
         toneButton.setOnClickListener(this);
 
         // Countdown timer
@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         // Ringtone
-        else if(v.getId() == R.id.imageView3){
+        else if(v.getId() == R.id.select_ringtone){
             Intent myintent = new Intent(MainActivity.this, MusicSelection.class);
             startActivity(myintent);
         }
