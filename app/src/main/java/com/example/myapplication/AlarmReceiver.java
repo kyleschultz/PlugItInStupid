@@ -11,7 +11,8 @@ public class AlarmReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
 
         //Log.e("We are in the receiver.", "Yay!");
-        System.out.println("In reciever");
+        System.out.println("In receiver");
+        String state = intent.getExtras().getString("extra");
 
         // fetch extra strings from the intent
         // tells the app whether the user pressed the alarm on button or the alarm off button
@@ -25,10 +26,20 @@ public class AlarmReceiver extends BroadcastReceiver {
 
         //Log.e("The whale choice is ", get_your_whale_choice.toString());
         Context main = App.getContext();
-        // create an intent to the ringtone service
-        Intent notify = new Intent(context, AlarmNotification.class);
-        main.startActivity(notify);
 
+        // create an intent to the ringtone service
+        if(intent.getExtras().getString("extra1") == null) {
+            Intent notify = new Intent(context, AlarmNotification.class);
+            main.startActivity(notify);
+        }
+        else{
+            Intent mActivity = new Intent(context, MainActivity.class);
+            main.startActivity(mActivity);
+        }
+        // create an intent to the ringtone service
+        Intent serviceIntent = new Intent(context,RingtoneService.class);
+        serviceIntent.putExtra("extra", state);
+        context.startService(serviceIntent);
 
 
         // pass the extra string from Receiver to the Ringtone Playing Service

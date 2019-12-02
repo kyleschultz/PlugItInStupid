@@ -3,6 +3,7 @@ package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -70,22 +71,28 @@ public class MusicSelection extends AppCompatActivity implements View.OnClickLis
 
 
         MediaPlayer mMediaPlayer;
-        mMediaPlayer = MediaPlayer.create(this, R.raw.byob);
         int selectedId = radioGroup.getCheckedRadioButtonId();
 
         if(selectedId == r1.getId()) {
             mMediaPlayer = MediaPlayer.create(this, R.raw.beat_it);
-
+            System.out.println("in beat it if statement");
+            App.setmMediaPlayer(mMediaPlayer);
         }
         else if(selectedId == r2.getId()) {
             mMediaPlayer = MediaPlayer.create(this, R.raw.byob);
-
+            App.setmMediaPlayer(mMediaPlayer);
         }
         else if(selectedId == r3.getId()) {
             mMediaPlayer = MediaPlayer.create(this, R.raw.pieces);
+            App.setmMediaPlayer(mMediaPlayer);
         }
         else if(selectedId == r4.getId()) {
             mMediaPlayer = MediaPlayer.create(this, R.raw.toxicity);
+            App.setmMediaPlayer(mMediaPlayer);
+        }
+        else if(v.getId() == R.id.saveButton){
+            Intent myIntent = new Intent(this, MainActivity.class);
+            startActivity(myIntent);
         }
 
     }
