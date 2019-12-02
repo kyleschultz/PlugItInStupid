@@ -7,8 +7,8 @@ import java.util.Calendar;
 
 public class SnoozeState implements AlarmState {
 
-    public void handle(AlarmManager manager, PendingIntent intent) {
-        Calendar calendar = Calendar.getInstance();
+    public void handle(AlarmManager manager, PendingIntent intent, Calendar calendar, boolean repeating) {
+        //Calendar calendar = Calendar.getInstance();
         long timeAfterTenMinute = calendar.getTimeInMillis() + 600000;
         manager.set(AlarmManager.RTC_WAKEUP, timeAfterTenMinute, intent);
     }
