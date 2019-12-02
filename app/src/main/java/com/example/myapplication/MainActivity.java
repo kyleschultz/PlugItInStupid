@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.LauncherActivity;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.ViewGroup;
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         this.context = this;
         App.setContext(this.context);
+        App.setmMediaPlayer(MediaPlayer.create(this, R.raw.byob));
         // Add alarm
         ImageView addButton = findViewById(R.id.addAlarm);
         addButton.setOnClickListener(this);
@@ -67,6 +69,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             App.addToArrayList(timeValue);
             addAlarmTextView(timeValue);
         }
+
+
     }
 
     @Override
