@@ -10,7 +10,7 @@ import android.os.Bundle;
 import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import java.util.Calendar;
+import android.icu.util.Calendar;
 import android.content.Intent;
 import android.widget.ImageView;
 import android.view.View;
@@ -85,10 +85,14 @@ public class AddAlarm extends AppCompatActivity implements View.OnClickListener 
             }
             System.out.println(tPicker.getCurrentHour() + ":" + tPicker.getCurrentMinute());
             calendar.setTimeInMillis(System.currentTimeMillis());
+
             calendar.set(Calendar.HOUR_OF_DAY, tPicker.getCurrentHour());
             calendar.set(Calendar.MINUTE, tPicker.getCurrentMinute());
             calendar.set(Calendar.SECOND, 0);
             calendar.set(Calendar.MILLISECOND, 0);
+            if(System.currentTimeMillis() > calendar.getTimeInMillis()){
+                calendar.setTimeInMillis(86400000 + calendar.getTimeInMillis());
+            }
             //System.out.println(this.context);
             this.state = new CreateState();
             boolean repeating = false;
