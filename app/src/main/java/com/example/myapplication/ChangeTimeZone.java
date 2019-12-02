@@ -15,14 +15,13 @@ import android.widget.Toast;
 
 public class ChangeTimeZone extends AppCompatActivity implements View.OnClickListener{
     private RadioGroup radioGroup;
-    private RadioButton EST, CST, MST, PST, AST, HST;
-    private Button b;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_time_zone);
 
-        b = findViewById(R.id.saveButton);
+        Button b = findViewById(R.id.saveButton);
         b.setOnClickListener(this);
 
         radioGroup = findViewById(R.id.radioGroup6);
@@ -74,12 +73,12 @@ public class ChangeTimeZone extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onClick(View v) {
 
-        EST = findViewById(R.id.timeButton1);
-        CST = findViewById(R.id.timeButton2);
-        MST = findViewById(R.id.timeButton3);
-        PST = findViewById(R.id.timeButton4);
-        AST = findViewById(R.id.timeButton5);
-        HST = findViewById(R.id.timeButton6);
+        RadioButton EST = findViewById(R.id.timeButton1);
+        RadioButton CST = findViewById(R.id.timeButton2);
+        RadioButton MST = findViewById(R.id.timeButton3);
+        RadioButton PST = findViewById(R.id.timeButton4);
+        RadioButton AST = findViewById(R.id.timeButton5);
+        RadioButton HST = findViewById(R.id.timeButton6);
 
         Calendar calendar = Calendar.getInstance();
         int selectedId = radioGroup.getCheckedRadioButtonId();
