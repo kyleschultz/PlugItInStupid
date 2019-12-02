@@ -92,7 +92,8 @@ public class AddAlarm extends AppCompatActivity implements View.OnClickListener 
             System.out.println(weekdays);
             if (weekdays.size() == 0) {
                 Intent intent = new Intent(this.context, AlarmReceiver.class);
-                PendingIntent pending = PendingIntent.getBroadcast(this.context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                PendingIntent pending = PendingIntent.getBroadcast(this.context, App.getIds(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                App.setIds(App.getIds() + 1);
                 state.handle(alarmManager, pending, calendar, repeating);
             }
             else{
@@ -100,7 +101,8 @@ public class AddAlarm extends AppCompatActivity implements View.OnClickListener 
                     repeating = true;
                     calendar.set(Calendar.DAY_OF_WEEK, weekdays.get(i));
                     Intent intent = new Intent(this.context, AlarmReceiver.class);
-                    PendingIntent pending = PendingIntent.getBroadcast(this.context, i+1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                    PendingIntent pending = PendingIntent.getBroadcast(this.context, App.getIds(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                    App.setIds(App.getIds() + 1);
                     state.handle(alarmManager, pending, calendar, repeating);
                 }
             }
