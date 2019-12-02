@@ -100,7 +100,7 @@ public class AddAlarm extends AppCompatActivity implements View.OnClickListener 
                     repeating = true;
                     calendar.set(Calendar.DAY_OF_WEEK, weekdays.get(i));
                     Intent intent = new Intent(this.context, AlarmReceiver.class);
-                    PendingIntent pending = PendingIntent.getBroadcast(this.context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                    PendingIntent pending = PendingIntent.getBroadcast(this.context, i+1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
                     state.handle(alarmManager, pending, calendar, repeating);
                 }
             }
