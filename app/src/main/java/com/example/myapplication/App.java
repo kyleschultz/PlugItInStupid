@@ -110,5 +110,4 @@ public class App extends Application {
     public static void setRingtoneServiceRunning( boolean r) {ringtoneServiceRunning = r;};
 
     public static boolean getRingtoneServiceRunning() {return ringtoneServiceRunning;}
-
 }

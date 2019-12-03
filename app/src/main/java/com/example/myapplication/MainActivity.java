@@ -42,6 +42,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     // 'Listen' for clicks
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Checking for useDarkTheme boolean in this manner is applied to
+        // all activities in our app to avoid 'BaseActivity' anti-pattern
         SharedPreferences preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         boolean useDarkTheme = preferences.getBoolean(PREF_DARK_THEME, false);
 
@@ -75,6 +77,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tzButton.setOnClickListener(this);
         wrapper = findViewById(R.id.AlarmLayout);
 
+        // Toggle Dark Mode
         Switch toggle = findViewById(R.id.switch1);
         toggle.setChecked(useDarkTheme);
         toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -109,9 +112,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             }
         }
-
-
-
     }
 
     @Override
@@ -292,4 +292,3 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         startActivity(intent);
     }
 }
-

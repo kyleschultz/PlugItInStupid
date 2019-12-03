@@ -3,17 +3,14 @@ package com.example.myapplication;
 import androidx.appcompat.app.AppCompatActivity;
 
 
-import android.annotation.TargetApi;
 import android.app.PendingIntent;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
 import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.icu.util.Calendar;
 import android.content.Intent;
-import android.widget.ImageView;
 import android.view.View;
 import android.app.AlarmManager;
 import android.content.Context;
@@ -207,4 +204,3 @@ public class AddAlarm extends AppCompatActivity implements View.OnClickListener 
         this.state = new CreateState();
     }
 }
-
