@@ -128,6 +128,7 @@ public class AddAlarm extends AppCompatActivity implements View.OnClickListener 
                 String temp = tPicker.getCurrentHour().toString() + ":" + tPicker.getCurrentMinute().toString();
                 App.addTime(temp);
                 intent.putExtra("extra", "yes");
+                intent.putExtra("index", App.getIntents().size());
                 PendingIntent pending = PendingIntent.getBroadcast(this.context, App.getIds(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
                 App.addIntent(pending);
                 App.setIds(App.getIds() + 1);
@@ -152,6 +153,7 @@ public class AddAlarm extends AppCompatActivity implements View.OnClickListener 
                     String temp = tPicker.getCurrentHour().toString() + ":" + tPicker.getCurrentMinute().toString();
                     App.addTime(temp);
                     intent.putExtra("extra", "yes");
+                    intent.putExtra("index", App.getIntents().size());
                     PendingIntent pending = PendingIntent.getBroadcast(this.context, App.getIds(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
                     App.addIntent(pending);
                     App.setIds(App.getIds() + 1);

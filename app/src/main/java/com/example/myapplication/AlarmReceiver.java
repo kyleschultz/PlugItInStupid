@@ -30,6 +30,8 @@ public class AlarmReceiver extends BroadcastReceiver {
         // create an intent to the ringtone service
         if(intent.getExtras().getString("extra1") == null) {
             Intent notify = new Intent(context, AlarmNotification.class);
+            int temp = intent.getIntExtra("index", 0);
+            notify.putExtra("index", temp);
             main.startActivity(notify);
         }
         else{

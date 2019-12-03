@@ -196,6 +196,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(!isChecked){
                     //onOff.setChecked(false);
+                    System.out.println("Temp id" + tempId);
                     state = new OffState();
                     App.changeOnOffIndex(tempId, false);
                     App.getIntents().get(tempId).cancel();
