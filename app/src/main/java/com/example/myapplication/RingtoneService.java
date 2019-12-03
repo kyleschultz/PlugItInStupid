@@ -33,8 +33,9 @@ public class RingtoneService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int sId)
     {
-        final NotificationManager mNM = (NotificationManager)
+        NotificationManager mNM = (NotificationManager)
                 getSystemService(NOTIFICATION_SERVICE);
+        //mediaPlayer.prepare();
 
         Intent intent1 = new Intent(this.getApplicationContext(), MainActivity.class);
         PendingIntent pIntent = PendingIntent.getActivity(this, 0, intent1, 0);
