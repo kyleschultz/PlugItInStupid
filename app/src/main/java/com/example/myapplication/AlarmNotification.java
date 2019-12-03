@@ -4,12 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.icu.util.Calendar;
 import android.widget.Toast;
@@ -17,7 +15,6 @@ import android.widget.Toast;
 public class AlarmNotification extends AppCompatActivity implements View.OnClickListener{
 
     private ImageView checkButton, snoozeButton;
-    Context context;
     Intent myIntent;
     AlarmManager manager;
     AlarmState state;
@@ -68,6 +65,4 @@ public class AlarmNotification extends AppCompatActivity implements View.OnClick
             sendBroadcast(myIntent);
         }
     }
-
-
 }

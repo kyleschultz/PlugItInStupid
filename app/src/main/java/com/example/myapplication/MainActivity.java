@@ -3,6 +3,8 @@ package com.example.myapplication;
 // Android imports
 import androidx.appcompat.app.AppCompatActivity;
 
+
+import android.content.SharedPreferences;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.graphics.Color;
@@ -25,11 +27,13 @@ import java.util.ArrayList;
 import android.icu.util.Calendar;
 
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     Context context;
     private ArrayList<String> views;
     LinearLayout wrapper;
+    private static final String PREFS_NAME = "prefs";
+    private static final String PREF_DARK_THEME = "dark_theme";
     private int viewId = 0;
     private int switchId = 0;
     AlarmManager manager;
@@ -38,6 +42,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     // 'Listen' for clicks
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Checking for useDarkTheme boolean in this manner is applied to
+        // all activities in our app to avoid 'BaseActivity' anti-pattern
+        SharedPreferences preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        boolean useDarkTheme = preferences.getBoolean(PREF_DARK_THEME, false);
+
+        if(useDarkTheme) {
+            setTheme(R.style.AppTheme_Dark_ActionBar);
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         manager = (AlarmManager) getSystemService(ALARM_SERVICE);
@@ -65,6 +77,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tzButton.setOnClickListener(this);
         wrapper = findViewById(R.id.AlarmLayout);
 
+        // Toggle Dark Mode
+        Switch toggle = findViewById(R.id.switch1);
+        toggle.setChecked(useDarkTheme);
+        toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton view, boolean isChecked) {
+                toggleTheme(isChecked);
+            }
+        });
+
         Intent fromAlarm = getIntent();
         if(fromAlarm != null && fromAlarm.getExtras() != null){
             String timeValue = fromAlarm.getExtras().getString("time");
@@ -90,9 +112,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             }
         }
-
-
-
     }
 
     @Override
@@ -175,7 +194,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         textView_item_name.setText(text);
         textView_item_name.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
         textView_item_name.setTextColor(Color.parseColor("#000000"));
-// textView1.setBackgroundColor(0xff66ff66); // hex color 0xAARRGGBB
+        // textView1.setBackgroundColor(0xff66ff66); // hex color 0xAARRGGBB
         //textView_item_name.setPadding(padding, padding, padding, padding);
 
         return textView_item_name;
@@ -262,5 +281,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
         return onOff;
     }
+    private void toggleTheme(boolean darkTheme) {
+        SharedPreferences.Editor editor = getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
+        editor.putBoolean(PREF_DARK_THEME, darkTheme);
+        editor.apply();
 
+        Intent intent = getIntent();
+        finish();
+
+        startActivity(intent);
+    }
 }
