@@ -40,6 +40,7 @@ public class AlarmNotification extends AppCompatActivity implements View.OnClick
             myIntent.putExtra("extra", "no");
             myIntent.putExtra("extra1", "main");
             state = new CreateState();
+            cal = Calendar.getInstance();
             cal.setTimeInMillis(System.currentTimeMillis() + 86400000);
             Intent intent = new Intent(this.getApplicationContext(), AlarmReceiver.class);
             intent.putExtra("extra", "yes");
