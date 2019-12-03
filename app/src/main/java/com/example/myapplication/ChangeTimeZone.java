@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.SharedPreferences;
 import android.icu.util.Calendar;
 import android.icu.util.TimeZone;
 import android.os.Bundle;
@@ -16,8 +17,17 @@ import android.widget.Toast;
 public class ChangeTimeZone extends AppCompatActivity implements View.OnClickListener{
     private RadioGroup radioGroup;
 
+    private static final String PREFS_NAME = "prefs";
+    private static final String PREF_DARK_THEME = "dark_theme";
+    // 'Listen' for clicks
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        SharedPreferences preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        boolean useDarkTheme = preferences.getBoolean(PREF_DARK_THEME, false);
+
+        if(useDarkTheme) {
+            setTheme(R.style.AppTheme_Dark_ActionBar);
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_time_zone);
 

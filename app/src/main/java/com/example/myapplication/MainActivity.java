@@ -4,12 +4,14 @@ package com.example.myapplication;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.LauncherActivity;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.content.Intent;
 import android.view.View;
@@ -22,15 +24,23 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     Context context;
     private ArrayList<String> views;
     LinearLayout wrapper;
     private int id = 0;
+    private static final String PREFS_NAME = "prefs";
+    private static final String PREF_DARK_THEME = "dark_theme";
     // 'Listen' for clicks
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        SharedPreferences preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        boolean useDarkTheme = preferences.getBoolean(PREF_DARK_THEME, false);
+
+        if(useDarkTheme) {
+            setTheme(R.style.AppTheme_Dark_ActionBar);
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -57,6 +67,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Button tzButton = findViewById(R.id.timeZoneButton);
         tzButton.setOnClickListener(this);
         wrapper = findViewById(R.id.AlarmLayout);
+
+        Switch toggle = findViewById(R.id.switch1);
+        toggle.setChecked(useDarkTheme);
+        toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton view, boolean isChecked) {
+                toggleTheme(isChecked);
+            }
+        });
 
         Intent fromAlarm = getIntent();
         if(fromAlarm != null && fromAlarm.getExtras() != null){
@@ -156,7 +175,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         textView_item_name.setText(text);
         textView_item_name.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
         textView_item_name.setTextColor(Color.parseColor("#000000"));
-// textView1.setBackgroundColor(0xff66ff66); // hex color 0xAARRGGBB
+        // textView1.setBackgroundColor(0xff66ff66); // hex color 0xAARRGGBB
         //textView_item_name.setPadding(padding, padding, padding, padding);
 
         return textView_item_name;
@@ -173,5 +192,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         onOff.setLayoutParams(lp);
         return onOff;
     }
+    private void toggleTheme(boolean darkTheme) {
+        SharedPreferences.Editor editor = getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
+        editor.putBoolean(PREF_DARK_THEME, darkTheme);
+        editor.apply();
 
+        Intent intent = getIntent();
+        finish();
+
+        startActivity(intent);
+    }
 }
+

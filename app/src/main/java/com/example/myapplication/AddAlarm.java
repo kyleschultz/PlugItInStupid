@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.TargetApi;
 import android.app.PendingIntent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.widget.CheckBox;
@@ -30,8 +31,17 @@ public class AddAlarm extends AppCompatActivity implements View.OnClickListener 
     private ArrayList<Integer> weekdays;
     Bundle mBundle;
 
+    private static final String PREFS_NAME = "prefs";
+    private static final String PREF_DARK_THEME = "dark_theme";
+    // 'Listen' for clicks
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        SharedPreferences preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        boolean useDarkTheme = preferences.getBoolean(PREF_DARK_THEME, false);
+
+        if(useDarkTheme) {
+            setTheme(R.style.AppTheme_Dark_ActionBar);
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_alarm);
         tPicker = (TimePicker) findViewById(R.id.timePicker);
