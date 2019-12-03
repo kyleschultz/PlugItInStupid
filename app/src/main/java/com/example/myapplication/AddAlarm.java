@@ -35,7 +35,13 @@ public class AddAlarm extends AppCompatActivity implements View.OnClickListener 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_alarm);
         tPicker = (TimePicker) findViewById(R.id.timePicker);
-        calendar = Calendar.getInstance();
+        if(App.getCalendar() == null){
+            calendar = Calendar.getInstance();
+        }
+        else{
+            calendar = App.getCalendar();
+        }
+
         alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         context = App.getContext();
         TextView button = findViewById(R.id.textView);
@@ -48,67 +54,103 @@ public class AddAlarm extends AppCompatActivity implements View.OnClickListener 
 
     }
 
-    @TargetApi(Build.VERSION_CODES.M)
     @Override
     public void onClick(View v) {
         if(v.getId() == R.id.textView){
             System.out.println("Clicked add");
             hour = tPicker.getCurrentHour();
             minute = tPicker.getCurrentMinute();
+            String daysString = "         ";
             CheckBox sunday = findViewById(R.id.checkBox);
             if(sunday.isChecked()){
                 weekdays.add(1);
+                daysString = daysString + "Su ";
             }
             CheckBox monday = findViewById(R.id.checkBox2);
             if(monday.isChecked()){
                 weekdays.add(2);
+                daysString = daysString + "M ";
             }
             CheckBox tuesday = findViewById(R.id.checkBox3);
             if(tuesday.isChecked()){
                 weekdays.add(3);
+                daysString = daysString + "T ";
             }
             CheckBox wednesday = findViewById(R.id.checkBox4);
             if(wednesday.isChecked()){
                 weekdays.add(4);
+                daysString = daysString + "W ";
             }
             CheckBox thursday = findViewById(R.id.checkBox5);
             if(thursday.isChecked()){
                 weekdays.add(5);
+                daysString = daysString + "Th ";
             }
             CheckBox friday = findViewById(R.id.checkBox6);
             if(friday.isChecked()) {
                 weekdays.add(6);
+                daysString = daysString + "F ";
             }
             CheckBox saturday = findViewById(R.id.checkBox7);
             if(saturday.isChecked()){
                 weekdays.add(7);
+                daysString = daysString + "S ";
             }
             System.out.println(tPicker.getCurrentHour() + ":" + tPicker.getCurrentMinute());
+            /*
             calendar.setTimeInMillis(System.currentTimeMillis());
 
             calendar.set(Calendar.HOUR_OF_DAY, tPicker.getCurrentHour());
             calendar.set(Calendar.MINUTE, tPicker.getCurrentMinute());
             calendar.set(Calendar.SECOND, 0);
             calendar.set(Calendar.MILLISECOND, 0);
-            if(System.currentTimeMillis() > calendar.getTimeInMillis()){
-                calendar.setTimeInMillis(86400000 + calendar.getTimeInMillis());
-            }
+            */
             //System.out.println(this.context);
             this.state = new CreateState();
             boolean repeating = false;
             System.out.println(weekdays);
             if (weekdays.size() == 0) {
+                calendar.setTimeInMillis(System.currentTimeMillis());
+                calendar.set(Calendar.HOUR_OF_DAY, tPicker.getCurrentHour());
+                calendar.set(Calendar.MINUTE, tPicker.getCurrentMinute());
+                calendar.set(Calendar.SECOND, 0);
+                calendar.set(Calendar.MILLISECOND, 0);
+                if(System.currentTimeMillis() >= calendar.getTimeInMillis()){
+                    System.out.println("Here");
+                    calendar.setTimeInMillis(86400000 + calendar.getTimeInMillis());
+                }
+                //if(calendar.getTimeInMillis() < System.currentTimeMillis()) {
+                //    calendar.add(Calendar.DAY_OF_YEAR, 7);
+                //}
                 Intent intent = new Intent(this.context, AlarmReceiver.class);
                 PendingIntent pending = PendingIntent.getBroadcast(this.context, App.getIds(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                App.addIntent(pending);
+                App.addDays(weekdays);
+                String temp = tPicker.getCurrentHour().toString() + ":" + tPicker.getCurrentMinute().toString();
+                App.addTime(temp);
                 App.setIds(App.getIds() + 1);
                 state.handle(alarmManager, pending, calendar, repeating);
             }
             else{
+                repeating = true;
                 for(int i = 0; i < weekdays.size(); i++){
-                    repeating = true;
+                    calendar.setTimeInMillis(System.currentTimeMillis());
                     calendar.set(Calendar.DAY_OF_WEEK, weekdays.get(i));
+                    //System.out.println(weekdays.get(i));
+                    calendar.set(Calendar.HOUR_OF_DAY, tPicker.getCurrentHour());
+                    calendar.set(Calendar.MINUTE, tPicker.getCurrentMinute());
+                    calendar.set(Calendar.SECOND, 0);
+                    calendar.set(Calendar.MILLISECOND, 0);
+                    if(calendar.getTimeInMillis() < System.currentTimeMillis()) {
+                        System.out.println("Here2");
+                        calendar.add(Calendar.DAY_OF_YEAR, 7);
+                    }
                     Intent intent = new Intent(this.context, AlarmReceiver.class);
                     PendingIntent pending = PendingIntent.getBroadcast(this.context, App.getIds(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                    App.addIntent(pending);
+                    App.addDays(weekdays);
+                    String temp = tPicker.getCurrentHour().toString() + ":" + tPicker.getCurrentMinute().toString();
+                    App.addTime(temp);
                     App.setIds(App.getIds() + 1);
                     state.handle(alarmManager, pending, calendar, repeating);
                 }
@@ -116,6 +158,7 @@ public class AddAlarm extends AppCompatActivity implements View.OnClickListener 
             String hour_string = String.valueOf(hour);
             String minute_string = String.valueOf(minute);
             String amPm = "";
+
             // convert 24-hour time to 12-hour time
             if (hour > 12) {
                 hour_string = String.valueOf(hour - 12);
@@ -128,9 +171,15 @@ public class AddAlarm extends AppCompatActivity implements View.OnClickListener 
             if (minute < 10) {
                 minute_string = "0" + String.valueOf(minute);
             }
+            if(hour == 0){
+                hour_string = "12";
+            }
+            if(hour == 12){
+                amPm = "pm";
+            }
             //alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pending);
             Intent main = new Intent(this, MainActivity.class);
-            mBundle.putString("time", hour_string + ":" + minute_string + amPm);
+            mBundle.putString("time", hour_string + ":" + minute_string + amPm + daysString);
             main.putExtras(mBundle);
             startActivity(main);
         }

@@ -3,12 +3,14 @@ package com.example.myapplication;
 // Android imports
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.LauncherActivity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.content.Intent;
 import android.view.View;
@@ -19,6 +21,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import android.icu.util.Calendar;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -26,13 +29,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Context context;
     private ArrayList<String> views;
     LinearLayout wrapper;
-    private int id = 0;
+    private int viewId = 0;
+    private int switchId = 0;
+    AlarmManager manager;
+    AlarmState state;
+    Calendar cal = Calendar.getInstance();
     // 'Listen' for clicks
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        manager = (AlarmManager) getSystemService(ALARM_SERVICE);
         this.context = this;
         App.setContext(this.context);
         // Add alarm
@@ -66,6 +73,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
             App.addToArrayList(timeValue);
             addAlarmTextView(timeValue);
+        }
+        else {
+            views = App.getViews();
+            System.out.println("views" + views);
+
+            if (views.size() != 0) {
+                for (String str : views) {
+                    addAlarmTextView(str);
+                }
+            }
         }
     }
 
@@ -126,6 +143,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         wrapper.addView(createATextView(ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT, RelativeLayout.ALIGN_PARENT_RIGHT,
                 time.toString(), 24));
+        App.addOnOff(true);
         wrapper.addView(createSwitch(ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT, RelativeLayout.ALIGN_PARENT_RIGHT,
                 time.toString(), 24));
@@ -136,8 +154,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public TextView createATextView(int layout_widh, int layout_height, int align,
                                     String text, int fontSize){
         TextView textView_item_name = new TextView(this);
-        textView_item_name.setId(id);
-        id++;
+        textView_item_name.setId(viewId);
+        viewId++;
         RelativeLayout.LayoutParams _params = new RelativeLayout.LayoutParams(
                 layout_widh, layout_height);
 
@@ -156,13 +174,81 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public Switch createSwitch(int layout_widh, int layout_height, int align,
                                String text, int fontSize){
-        Switch onOff = new Switch(this);
-        onOff.setId(id);
-        id++;
+        final Switch onOff = new Switch(this);
+        onOff.setId(switchId);
+        final int tempId = switchId;
+        switchId++;
         onOff.setText("On/Off");
-        onOff.setChecked(true);
+        onOff.setChecked(App.getOnOffAtIndex(tempId));
         ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         onOff.setLayoutParams(lp);
+        onOff.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(!isChecked){
+                    //onOff.setChecked(false);
+                    state = new OffState();
+                    App.changeOnOffIndex(tempId, false);
+                    App.getIntents().get(tempId).cancel();
+                    state.handle(manager, App.getIntents().get(tempId), cal, true);
+                }
+                else{
+                    //onOff.setChecked(true);
+                    cal = Calendar.getInstance();
+                    state = new CreateState();
+                    if(App.getDays().get(tempId).size() == 0){
+                        String tempTime = App.getTimes().get(tempId);
+                        String[] times = tempTime.split(":");
+                        //System.out.println(times[0] + times[1]);
+                        int hour = Integer.parseInt(times[0]);
+                        int minute = Integer.parseInt(times[1]);
+                        cal.setTimeInMillis(System.currentTimeMillis());
+                        cal.set(Calendar.HOUR_OF_DAY, hour);
+                        cal.set(Calendar.MINUTE, minute);
+                        cal.set(Calendar.SECOND, 0);
+                        cal.set(Calendar.MILLISECOND, 0);
+                        if(System.currentTimeMillis() >= cal.getTimeInMillis()){
+                            System.out.println("Here");
+                            cal.setTimeInMillis(86400000 + cal.getTimeInMillis());
+                        }
+                        App.changeOnOffIndex(tempId, true);
+                        Intent intent = new Intent(App.getContext(), AlarmReceiver.class);
+                        PendingIntent pending = PendingIntent.getBroadcast(App.getContext(), App.getIds(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                        App.setIds(App.getIds() + 1);
+                        App.setIntentAtIndex(tempId, pending);
+                        state.handle(manager, pending, cal, false);
+                    }
+                    else{
+                        ArrayList<Integer> tmpDays = App.getDays().get(tempId);
+                        String tempTime = App.getTimes().get(tempId);
+                        String[] times = tempTime.split(":");
+                        //System.out.println(times[0] + times[1]);
+                        int hour = Integer.parseInt(times[0]);
+                        int minute = Integer.parseInt(times[1]);
+                        for(int i = 0; i < tmpDays.size(); i++){
+                            cal.setTimeInMillis(System.currentTimeMillis());
+                            cal.set(Calendar.DAY_OF_WEEK, tmpDays.get(i));
+                            //System.out.println(weekdays.get(i));
+                            cal.set(Calendar.HOUR_OF_DAY, hour);
+                            cal.set(Calendar.MINUTE, minute);
+                            cal.set(Calendar.SECOND, 0);
+                            cal.set(Calendar.MILLISECOND, 0);
+                            if(cal.getTimeInMillis() < System.currentTimeMillis()) {
+                                System.out.println("Here2");
+                                cal.add(Calendar.DAY_OF_YEAR, 7);
+                            }
+                            App.changeOnOffIndex(tempId, true);
+                            Intent intent = new Intent(App.getContext(), AlarmReceiver.class);
+                            PendingIntent pending = PendingIntent.getBroadcast(App.getContext(), App.getIds(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                            App.setIds(App.getIds() + 1);
+                            App.setIntentAtIndex(tempId, pending);
+                            state.handle(manager, pending, cal, true);
+                        }
+                    }
+
+                }
+            }
+        });
         return onOff;
     }
 
