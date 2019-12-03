@@ -36,7 +36,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         this.context = this;
         App.setContext(this.context);
-        App.setmMediaPlayer(MediaPlayer.create(this, R.raw.byob));
+        MediaPlayer m = App.getmMediaPlayer();
+        System.out.println("in Main activity mediaplayer currently is " + m);
+        if(m == null) {
+            App.setmMediaPlayer(MediaPlayer.create(this, R.raw.byob));
+        }
         // Add alarm
         ImageView addButton = findViewById(R.id.addAlarm);
         addButton.setOnClickListener(this);

@@ -25,6 +25,14 @@ public class MusicSelection extends AppCompatActivity implements View.OnClickLis
 
         b = findViewById(R.id.saveButton);
         b.setOnClickListener(this);
+        r1 = findViewById(R.id.musicButton1);
+        r1.setOnClickListener(this);
+        r2 = findViewById(R.id.musicButton2);
+        r2.setOnClickListener(this);
+        r3 = findViewById(R.id.musicButton3);
+        r3.setOnClickListener(this);
+        r4 = findViewById(R.id.musicButton4);
+        r4.setOnClickListener(this);
 
         radioGroup = findViewById(R.id.radioGroupMusic);
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -64,10 +72,10 @@ public class MusicSelection extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onClick(View v) {
 
-        r1 = findViewById(R.id.musicButton1);
-        r2 = findViewById(R.id.musicButton2);
-        r3 = findViewById(R.id.musicButton3);
-        r4 = findViewById(R.id.musicButton4);
+//        r1 = findViewById(R.id.musicButton1);
+//        r2 = findViewById(R.id.musicButton2);
+//        r3 = findViewById(R.id.musicButton3);
+//        r4 = findViewById(R.id.musicButton4);
 
 
         MediaPlayer mMediaPlayer;
@@ -75,22 +83,25 @@ public class MusicSelection extends AppCompatActivity implements View.OnClickLis
 
         if(selectedId == r1.getId()) {
             mMediaPlayer = MediaPlayer.create(this, R.raw.beat_it);
-            System.out.println("in beat it if statement");
+            System.out.println("IN BEAT IT IF STATEMENT");
             App.setmMediaPlayer(mMediaPlayer);
         }
-        else if(selectedId == r2.getId()) {
+        if(selectedId == r2.getId()) {
             mMediaPlayer = MediaPlayer.create(this, R.raw.byob);
             App.setmMediaPlayer(mMediaPlayer);
         }
-        else if(selectedId == r3.getId()) {
+        if(selectedId == r3.getId()) {
+            System.out.println("IN PIECES IF STATEMENT");
             mMediaPlayer = MediaPlayer.create(this, R.raw.pieces);
             App.setmMediaPlayer(mMediaPlayer);
         }
-        else if(selectedId == r4.getId()) {
+        if(selectedId == r4.getId()) {
             mMediaPlayer = MediaPlayer.create(this, R.raw.toxicity);
             App.setmMediaPlayer(mMediaPlayer);
         }
-        else if(v.getId() == R.id.saveButton){
+        //go back to the main activity screen
+        if(v.getId() == R.id.saveButton){
+            System.out.println("IN SAVE BUTTON STATEMENT");
             Intent myIntent = new Intent(this, MainActivity.class);
             startActivity(myIntent);
         }
