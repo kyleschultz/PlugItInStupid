@@ -7,6 +7,7 @@ import android.content.Context;
 import java.util.ArrayList;
 import android.icu.util.Calendar;
 import android.widget.Switch;
+import android.media.MediaPlayer;
 
 public class App extends Application {
 
@@ -20,6 +21,8 @@ public class App extends Application {
     private static ArrayList<Boolean> onOff = new ArrayList<Boolean>();
 
     private static Calendar calendar;
+    private static MediaPlayer mMediaPlayer;
+    private static boolean ringtoneServiceRunning;
 
     public static Context getContext() {
         return context;
@@ -98,4 +101,14 @@ public class App extends Application {
     public static void setIntentAtIndex(int ind, PendingIntent intent){
         alarms.set(ind, intent);
     }
+    public static void setmMediaPlayer(MediaPlayer m) {
+        mMediaPlayer = m;
+    }
+
+    public static MediaPlayer getmMediaPlayer() {return mMediaPlayer;}
+
+    public static void setRingtoneServiceRunning( boolean r) {ringtoneServiceRunning = r;};
+
+    public static boolean getRingtoneServiceRunning() {return ringtoneServiceRunning;}
+
 }

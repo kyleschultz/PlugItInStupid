@@ -123,11 +123,13 @@ public class AddAlarm extends AppCompatActivity implements View.OnClickListener 
                 //    calendar.add(Calendar.DAY_OF_YEAR, 7);
                 //}
                 Intent intent = new Intent(this.context, AlarmReceiver.class);
-                PendingIntent pending = PendingIntent.getBroadcast(this.context, App.getIds(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
-                App.addIntent(pending);
+
                 App.addDays(weekdays);
                 String temp = tPicker.getCurrentHour().toString() + ":" + tPicker.getCurrentMinute().toString();
                 App.addTime(temp);
+                intent.putExtra("extra", "yes");
+                PendingIntent pending = PendingIntent.getBroadcast(this.context, App.getIds(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                App.addIntent(pending);
                 App.setIds(App.getIds() + 1);
                 state.handle(alarmManager, pending, calendar, repeating);
             }
@@ -146,11 +148,12 @@ public class AddAlarm extends AppCompatActivity implements View.OnClickListener 
                         calendar.add(Calendar.DAY_OF_YEAR, 7);
                     }
                     Intent intent = new Intent(this.context, AlarmReceiver.class);
-                    PendingIntent pending = PendingIntent.getBroadcast(this.context, App.getIds(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
-                    App.addIntent(pending);
                     App.addDays(weekdays);
                     String temp = tPicker.getCurrentHour().toString() + ":" + tPicker.getCurrentMinute().toString();
                     App.addTime(temp);
+                    intent.putExtra("extra", "yes");
+                    PendingIntent pending = PendingIntent.getBroadcast(this.context, App.getIds(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                    App.addIntent(pending);
                     App.setIds(App.getIds() + 1);
                     state.handle(alarmManager, pending, calendar, repeating);
                 }

@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.ViewGroup;
@@ -42,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         manager = (AlarmManager) getSystemService(ALARM_SERVICE);
         this.context = this;
         App.setContext(this.context);
+        App.setmMediaPlayer(MediaPlayer.create(this, R.raw.byob));
         // Add alarm
         ImageView addButton = findViewById(R.id.addAlarm);
         addButton.setOnClickListener(this);
@@ -84,6 +86,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             }
         }
+
+
+
     }
 
     @Override
@@ -213,6 +218,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         }
                         App.changeOnOffIndex(tempId, true);
                         Intent intent = new Intent(App.getContext(), AlarmReceiver.class);
+                        intent.putExtra("extra", "yes");
                         PendingIntent pending = PendingIntent.getBroadcast(App.getContext(), App.getIds(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
                         App.setIds(App.getIds() + 1);
                         App.setIntentAtIndex(tempId, pending);
@@ -239,6 +245,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             }
                             App.changeOnOffIndex(tempId, true);
                             Intent intent = new Intent(App.getContext(), AlarmReceiver.class);
+                            intent.putExtra("extra", "yes");
                             PendingIntent pending = PendingIntent.getBroadcast(App.getContext(), App.getIds(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
                             App.setIds(App.getIds() + 1);
                             App.setIntentAtIndex(tempId, pending);
