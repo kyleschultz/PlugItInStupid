@@ -6,5 +6,5 @@ import android.app.PendingIntent;
 import android.icu.util.Calendar;
 
 public interface AlarmState {
-    public void handle(AlarmManager manager, PendingIntent intent, Calendar calendar, boolean repeating);
+    void handle(AlarmManager manager, PendingIntent intent, Calendar calendar, boolean repeating);
 }

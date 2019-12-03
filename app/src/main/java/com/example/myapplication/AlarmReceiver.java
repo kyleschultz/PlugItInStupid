@@ -3,7 +3,6 @@ package com.example.myapplication;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 
 public class AlarmReceiver extends BroadcastReceiver {
 
@@ -51,7 +50,5 @@ public class AlarmReceiver extends BroadcastReceiver {
 
         // start the ringtone service
         //context.startService(service_intent);
-
     }
-
 }

@@ -7,7 +7,6 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
 import android.media.MediaPlayer;
-import android.os.Build;
 import android.os.IBinder;
 
 
@@ -73,8 +72,4 @@ public class RingtoneService extends Service {
         }
         return START_NOT_STICKY;
     }
-
-
-
-
 }
