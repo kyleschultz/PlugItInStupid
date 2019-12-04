@@ -19,11 +19,15 @@ public class AlarmNotification extends AppCompatActivity implements View.OnClick
     AlarmManager manager;
     AlarmState state;
     Calendar cal;
+    private int indexofIntent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alarm_notification);
-
+        Intent i = getIntent();
+        indexofIntent = i.getIntExtra("index", 0);
+        System.out.println(indexofIntent);
+        manager = (AlarmManager) getSystemService(ALARM_SERVICE);
         myIntent = new Intent(App.getContext(), AlarmReceiver.class);
         checkButton = findViewById(R.id.alarmCheck);
         checkButton.setOnClickListener(this);
@@ -36,12 +40,24 @@ public class AlarmNotification extends AppCompatActivity implements View.OnClick
         if(v.getId() == R.id.alarmCheck){
             myIntent.putExtra("extra", "no");
             myIntent.putExtra("extra1", "main");
-            state = new CreateState();
             cal = Calendar.getInstance();
-            cal.setTimeInMillis(System.currentTimeMillis() + 86400000);
+            String tempTime = App.getTimes().get(indexofIntent);
+            String[] times = tempTime.split(":");
+            int hour = Integer.parseInt(times[0]);
+            int minute = Integer.parseInt(times[1]);
+            cal.setTimeInMillis(System.currentTimeMillis());
+            cal.set(Calendar.HOUR_OF_DAY, hour);
+            cal.set(Calendar.MINUTE, minute);
+            cal.set(Calendar.SECOND, 0);
+            cal.set(Calendar.MILLISECOND, 0);
+            state = new CreateState();
+            manager = (AlarmManager) getSystemService(ALARM_SERVICE);
+            cal.setTimeInMillis(cal.getTimeInMillis() + 86400000);
             Intent intent = new Intent(this.getApplicationContext(), AlarmReceiver.class);
             intent.putExtra("extra", "yes");
+            intent.putExtra("index", indexofIntent);
             PendingIntent pending = PendingIntent.getBroadcast(this.getApplicationContext(), App.getIds(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
+            App.setIntentAtIndex(indexofIntent, pending);
             App.setIds(App.getIds() + 1);
             state.handle(manager, pending, cal, false);
             sendBroadcast(myIntent);
@@ -55,7 +71,9 @@ public class AlarmNotification extends AppCompatActivity implements View.OnClick
             cal = Calendar.getInstance();
             Intent intent = new Intent(this.getApplicationContext(), AlarmReceiver.class);
             intent.putExtra("extra", "yes");
+            intent.putExtra("index", indexofIntent);
             PendingIntent pending = PendingIntent.getBroadcast(this.getApplicationContext(), App.getIds(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
+            App.setIntentAtIndex(indexofIntent, pending);
             App.setIds(App.getIds() + 1);
             state.handle(manager, pending, cal, false);
             Toast t = Toast.makeText(getApplicationContext(), "Alarm Snoozed for 10 minutes",

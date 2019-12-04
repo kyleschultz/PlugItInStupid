@@ -38,7 +38,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private int switchId = 0;
     AlarmManager manager;
     AlarmState state;
-    Calendar cal = Calendar.getInstance();
+    Calendar cal;
+    private BatteryService bService;
     // 'Listen' for clicks
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,9 +47,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // all activities in our app to avoid 'BaseActivity' anti-pattern
         SharedPreferences preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         boolean useDarkTheme = preferences.getBoolean(PREF_DARK_THEME, false);
-
         if(useDarkTheme) {
             setTheme(R.style.AppTheme_Dark_ActionBar);
+        }
+        if(bService == null && App.getPlugItInCalled() == false){
+            Intent batteryIntent = new Intent(this, BatteryService.class);
+            startService(batteryIntent);
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -86,7 +90,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 toggleTheme(isChecked);
             }
         });
-
         Intent fromAlarm = getIntent();
         if(fromAlarm != null && fromAlarm.getExtras() != null){
             String timeValue = fromAlarm.getExtras().getString("time");
@@ -103,6 +106,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             addAlarmTextView(timeValue);
         }
         else {
+            System.out.println("switched displays" + App.getSwitchedDisplays());
             views = App.getViews();
             System.out.println("views" + views);
 
@@ -112,6 +116,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             }
         }
+        App.setSwitchedDisplays(false);
     }
 
     @Override
@@ -215,6 +220,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(!isChecked){
                     //onOff.setChecked(false);
+                    System.out.println("Temp id" + tempId);
                     state = new OffState();
                     App.changeOnOffIndex(tempId, false);
                     App.getIntents().get(tempId).cancel();
@@ -285,10 +291,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         SharedPreferences.Editor editor = getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
         editor.putBoolean(PREF_DARK_THEME, darkTheme);
         editor.apply();
-
+        App.setSwitchedDisplays(true);
         Intent intent = getIntent();
-        finish();
-
+        //finish();
         startActivity(intent);
     }
 }
