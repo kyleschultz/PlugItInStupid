@@ -3,7 +3,9 @@ package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.AssetFileDescriptor;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -18,6 +20,8 @@ public class MusicSelection extends AppCompatActivity implements View.OnClickLis
     private RadioGroup radioGroup;
     private RadioButton r1, r2, r3, r4;
     private Button b;
+    Context mContext;
+    MediaPlayer mMediaPlayer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,32 +76,30 @@ public class MusicSelection extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onClick(View v) {
 
-//        r1 = findViewById(R.id.musicButton1);
-//        r2 = findViewById(R.id.musicButton2);
-//        r3 = findViewById(R.id.musicButton3);
-//        r4 = findViewById(R.id.musicButton4);
 
-
-        MediaPlayer mMediaPlayer;
         int selectedId = radioGroup.getCheckedRadioButtonId();
 
         if(selectedId == r1.getId()) {
-            mMediaPlayer = MediaPlayer.create(this, R.raw.beat_it);
+            App.createMediaPlayer("beat");
+            App.setMediaString("beat");
+
             System.out.println("IN BEAT IT IF STATEMENT");
-            App.setmMediaPlayer(mMediaPlayer);
         }
         if(selectedId == r2.getId()) {
-            mMediaPlayer = MediaPlayer.create(this, R.raw.byob);
-            App.setmMediaPlayer(mMediaPlayer);
+            App.createMediaPlayer("byob");
+            App.setMediaString("byob");
+
         }
         if(selectedId == r3.getId()) {
+            App.createMediaPlayer("pieces");
+            App.setMediaString("pieces");
             System.out.println("IN PIECES IF STATEMENT");
-            mMediaPlayer = MediaPlayer.create(this, R.raw.pieces);
-            App.setmMediaPlayer(mMediaPlayer);
+
         }
         if(selectedId == r4.getId()) {
-            mMediaPlayer = MediaPlayer.create(this, R.raw.toxicity);
-            App.setmMediaPlayer(mMediaPlayer);
+            App.createMediaPlayer("toxic");
+            App.setMediaString("toxic");
+
         }
         //go back to the main activity screen
         if(v.getId() == R.id.saveButton){

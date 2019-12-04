@@ -3,9 +3,13 @@ package com.example.myapplication;
 import android.app.Application;
 import android.content.Context;
 
+import java.io.IOException;
+import java.net.URI;
 import java.util.ArrayList;
 import android.icu.util.Calendar;
+import android.media.MediaMetadata;
 import android.media.MediaPlayer;
+import android.net.Uri;
 
 public class App extends Application {
 
@@ -13,8 +17,8 @@ public class App extends Application {
     private static int ids = 0;
     private static ArrayList<String> views = new ArrayList<String>();
     private static Calendar calendar;
-    private static MediaPlayer mMediaPlayer;
-    private static boolean ringtoneServiceRunning;
+    public static String mediaString;
+
 
     public static Context getContext() {
         return context;
@@ -46,11 +50,30 @@ public class App extends Application {
         return calendar;
     }
 
-    public static void setmMediaPlayer(MediaPlayer m) { mMediaPlayer = m;}
 
-    public static MediaPlayer getmMediaPlayer() {return mMediaPlayer;}
+    public static void setMediaString(String s) {mediaString = s;}
 
-    public static void setRingtoneServiceRunning( boolean r) {ringtoneServiceRunning = r;};
+    public static String getMediaString() {return mediaString;}
 
-    public static boolean getRingtoneServiceRunning() {return ringtoneServiceRunning;}
+
+
+    public static void createMediaPlayer(String song){
+        if(song == "beat"){
+            //mMediaPlayer = MediaPlayer.create(App.getContext(), R.raw.beat_it);
+            setMediaString("beat");
+        }
+        else if(song == "byob"){
+            //mMediaPlayer = MediaPlayer.create(App.getContext(), R.raw.byob);
+            setMediaString("beat");
+        }
+        else if(song == "pieces"){
+            //mMediaPlayer = MediaPlayer.create(App.getContext(), R.raw.pieces);
+            setMediaString("beat");
+        }
+        else{
+            //mMediaPlayer = MediaPlayer.create(App.getContext(), R.raw.toxicity);
+            setMediaString("beat");
+        }
+
+    }
 }
