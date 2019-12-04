@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
         Intent fromAlarm = getIntent();
-        if(fromAlarm != null && fromAlarm.getExtras() != null){
+        if(fromAlarm != null && fromAlarm.getExtras() != null && App.getSwitchedDisplays() == false){
             String timeValue = fromAlarm.getExtras().getString("time");
             System.out.println(timeValue);
             views = App.getViews();
