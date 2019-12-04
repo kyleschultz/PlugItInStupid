@@ -20,6 +20,7 @@ public class App extends Application {
     private static ArrayList<ArrayList<Integer>> days = new ArrayList<ArrayList<Integer>>();
     private static ArrayList<Boolean> onOff = new ArrayList<Boolean>();
     private static boolean switchedDisplays = false;
+    private static boolean plugItInCalled = false;
 
     private static Calendar calendar;
     private static MediaPlayer mMediaPlayer;
@@ -118,5 +119,13 @@ public class App extends Application {
 
     public static void setSwitchedDisplays(boolean switched){
         switchedDisplays = switched;
+    }
+
+    public static boolean getPlugItInCalled(){
+        return plugItInCalled;
+    }
+
+    public static void setPlugItInCalled(boolean plug){
+        plugItInCalled = plug;
     }
 }

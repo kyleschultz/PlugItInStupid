@@ -38,7 +38,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private int switchId = 0;
     AlarmManager manager;
     AlarmState state;
-    Calendar cal = Calendar.getInstance();
+    Calendar cal;
+    private BatteryService bService;
     // 'Listen' for clicks
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +49,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         boolean useDarkTheme = preferences.getBoolean(PREF_DARK_THEME, false);
         if(useDarkTheme) {
             setTheme(R.style.AppTheme_Dark_ActionBar);
+        }
+        if(bService == null && App.getPlugItInCalled() == false){
+            Intent batteryIntent = new Intent(this, BatteryService.class);
+            startService(batteryIntent);
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -86,7 +91,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
         Intent fromAlarm = getIntent();
-        if(fromAlarm != null && fromAlarm.getExtras() != null && App.getSwitchedDisplays() == false){
+        if(fromAlarm != null && fromAlarm.getExtras() != null){
             String timeValue = fromAlarm.getExtras().getString("time");
             System.out.println(timeValue);
             views = App.getViews();
