@@ -4,10 +4,17 @@ import android.app.Application;
 import android.app.PendingIntent;
 import android.content.Context;
 
+import java.io.IOException;
+import java.net.URI;
 import java.util.ArrayList;
 import android.icu.util.Calendar;
+
+import android.media.MediaMetadata;
+
 import android.widget.Switch;
+
 import android.media.MediaPlayer;
+import android.net.Uri;
 
 public class App extends Application {
 
@@ -23,8 +30,8 @@ public class App extends Application {
     private static boolean plugItInCalled = false;
 
     private static Calendar calendar;
-    private static MediaPlayer mMediaPlayer;
-    private static boolean ringtoneServiceRunning;
+    public static String mediaString;
+
 
     public static Context getContext() {
         return context;
@@ -55,6 +62,7 @@ public class App extends Application {
     public static Calendar getCalendar(){
         return calendar;
     }
+
 
     public static void addIntent(PendingIntent intent){
         alarms.add(intent);
@@ -103,15 +111,32 @@ public class App extends Application {
     public static void setIntentAtIndex(int ind, PendingIntent intent){
         alarms.set(ind, intent);
     }
-    public static void setmMediaPlayer(MediaPlayer m) {
-        mMediaPlayer = m;
+
+
+    public static void setMediaString(String s) {mediaString = s;}
+
+    public static String getMediaString() {return mediaString;}
+
+
+
+
+    public static void createMediaPlayer(String song) {
+        if (song == "beat") {
+            //mMediaPlayer = MediaPlayer.create(App.getContext(), R.raw.beat_it);
+            setMediaString("beat");
+        } else if (song == "byob") {
+            //mMediaPlayer = MediaPlayer.create(App.getContext(), R.raw.byob);
+            setMediaString("beat");
+        } else if (song == "pieces") {
+            //mMediaPlayer = MediaPlayer.create(App.getContext(), R.raw.pieces);
+            setMediaString("beat");
+        } else {
+            //mMediaPlayer = MediaPlayer.create(App.getContext(), R.raw.toxicity);
+            setMediaString("beat");
+        }
     }
 
-    public static MediaPlayer getmMediaPlayer() {return mMediaPlayer;}
 
-    public static void setRingtoneServiceRunning( boolean r) {ringtoneServiceRunning = r;};
-
-    public static boolean getRingtoneServiceRunning() {return ringtoneServiceRunning;}
 
     public static boolean getSwitchedDisplays(){
         return switchedDisplays;
@@ -127,5 +152,6 @@ public class App extends Application {
 
     public static void setPlugItInCalled(boolean plug){
         plugItInCalled = plug;
+
     }
 }

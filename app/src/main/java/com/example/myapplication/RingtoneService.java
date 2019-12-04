@@ -5,17 +5,27 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.AssetFileDescriptor;
 import android.media.MediaPlayer;
+import android.net.Uri;
+
 import android.os.IBinder;
 
+
+import java.io.File;
+import java.io.IOException;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
 public class RingtoneService extends Service {
     //public RingtoneService() {}
-    MediaPlayer mediaPlayer = App.getmMediaPlayer();
+    MediaPlayer mediaPlayer = MediaPlayer.create(App.getContext(), R.raw.beat_it);
+    MediaPlayer mediaPlayer2 = MediaPlayer.create(App.getContext(), R.raw.byob);
+    MediaPlayer mediaPlayer3 = MediaPlayer.create(App.getContext(), R.raw.pieces);
+    MediaPlayer mediaPlayer4 = MediaPlayer.create(App.getContext(), R.raw.toxicity);
     private boolean isRunning;
     private int startId;
 
@@ -59,14 +69,55 @@ public class RingtoneService extends Service {
                 break;
         }
         if(!this.isRunning && startId == 1){
-            mediaPlayer.start();
+            String s = App.getMediaString();
+            Uri uri;
+
+            if(s == "beat"){
+                mediaPlayer.start();
+
+            }
+            else if(s == "byob"){
+                mediaPlayer2.start();
+
+            }
+            else if(s == "pieces"){
+                mediaPlayer3.start();
+
+            }
+            else{
+                mediaPlayer4.start();
+
+            }
+
+
             mNM.notify(0, mNotify);
             this.isRunning = true;
             this.startId = 0;
         }
         else{
-            mediaPlayer.stop();
-            mediaPlayer.reset();
+            String s = App.getMediaString();
+
+            if(s == "beat"){
+                mediaPlayer.stop();
+                mediaPlayer.reset();
+
+            }
+            else if(s == "byob"){
+                mediaPlayer2.stop();
+                mediaPlayer2.reset();
+
+            }
+            else if(s == "pieces"){
+                mediaPlayer3.stop();
+                mediaPlayer3.reset();
+
+            }
+            else{
+                mediaPlayer4.stop();
+                mediaPlayer4.reset();
+
+            }
+
             this.isRunning = false;
             this.startId = 0;
         }
