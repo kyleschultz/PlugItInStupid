@@ -38,7 +38,7 @@ public class BatteryService extends Service {
 
         @Override
         public void onReceive(final Context context, final Intent intent) {
-            if(App.getSwitchedDisplays() == false) {
+            if(App.getPlugItInCalled() == false) {
                 checkBatteryLevel(intent);
             }
         }
