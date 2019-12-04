@@ -69,6 +69,15 @@ public class AlarmNotification extends AppCompatActivity implements View.OnClick
             manager = (AlarmManager) getSystemService(ALARM_SERVICE);
             state = new SnoozeState();
             cal = Calendar.getInstance();
+            String tempTime = App.getTimes().get(indexofIntent);
+            String[] times = tempTime.split(":");
+            int hour = Integer.parseInt(times[0]);
+            int minute = Integer.parseInt(times[1]);
+            cal.setTimeInMillis(System.currentTimeMillis());
+            cal.set(Calendar.HOUR_OF_DAY, hour);
+            cal.set(Calendar.MINUTE, minute);
+            cal.set(Calendar.SECOND, 0);
+            cal.set(Calendar.MILLISECOND, 0);
             Intent intent = new Intent(this.getApplicationContext(), AlarmReceiver.class);
             intent.putExtra("extra", "yes");
             intent.putExtra("index", indexofIntent);
