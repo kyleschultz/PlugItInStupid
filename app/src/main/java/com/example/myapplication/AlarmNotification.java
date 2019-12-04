@@ -51,6 +51,7 @@ public class AlarmNotification extends AppCompatActivity implements View.OnClick
             cal.set(Calendar.SECOND, 0);
             cal.set(Calendar.MILLISECOND, 0);
             state = new CreateState();
+            manager = (AlarmManager) getSystemService(ALARM_SERVICE);
             cal.setTimeInMillis(cal.getTimeInMillis() + 86400000);
             Intent intent = new Intent(this.getApplicationContext(), AlarmReceiver.class);
             intent.putExtra("extra", "yes");

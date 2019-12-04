@@ -46,7 +46,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // all activities in our app to avoid 'BaseActivity' anti-pattern
         SharedPreferences preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         boolean useDarkTheme = preferences.getBoolean(PREF_DARK_THEME, false);
-
         if(useDarkTheme) {
             setTheme(R.style.AppTheme_Dark_ActionBar);
         }
@@ -86,9 +85,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 toggleTheme(isChecked);
             }
         });
-
         Intent fromAlarm = getIntent();
-        if(fromAlarm != null && fromAlarm.getExtras() != null){
+        if(fromAlarm != null && fromAlarm.getExtras() != null && App.getSwitchedDisplays() == false){
             String timeValue = fromAlarm.getExtras().getString("time");
             System.out.println(timeValue);
             views = App.getViews();
@@ -103,6 +101,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             addAlarmTextView(timeValue);
         }
         else {
+            System.out.println("switched displays" + App.getSwitchedDisplays());
             views = App.getViews();
             System.out.println("views" + views);
 
@@ -112,6 +111,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             }
         }
+        App.setSwitchedDisplays(false);
     }
 
     @Override
@@ -286,10 +286,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         SharedPreferences.Editor editor = getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
         editor.putBoolean(PREF_DARK_THEME, darkTheme);
         editor.apply();
-
+        App.setSwitchedDisplays(true);
         Intent intent = getIntent();
-        finish();
-
+        //finish();
         startActivity(intent);
     }
 }
