@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.AssetFileDescriptor;
+
+import android.content.SharedPreferences;
+
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -20,10 +22,19 @@ public class MusicSelection extends AppCompatActivity implements View.OnClickLis
     private RadioGroup radioGroup;
     private RadioButton r1, r2, r3, r4;
     private Button b;
-    Context mContext;
-    MediaPlayer mMediaPlayer;
+
+    private static final String PREFS_NAME = "prefs";
+    private static final String PREF_DARK_THEME = "dark_theme";
+    // 'Listen' for clicks
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        SharedPreferences preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        boolean useDarkTheme = preferences.getBoolean(PREF_DARK_THEME, false);
+
+        if(useDarkTheme) {
+            setTheme(R.style.AppTheme_Dark_ActionBar);
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_music_selection);
 

@@ -10,7 +10,7 @@ import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
 import android.media.MediaPlayer;
 import android.net.Uri;
-import android.os.Build;
+
 import android.os.IBinder;
 
 
@@ -42,7 +42,7 @@ public class RingtoneService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int sId)
     {
-        final NotificationManager mNM = (NotificationManager)
+        NotificationManager mNM = (NotificationManager)
                 getSystemService(NOTIFICATION_SERVICE);
 
         Intent intent1 = new Intent(this.getApplicationContext(), MainActivity.class);
@@ -123,8 +123,4 @@ public class RingtoneService extends Service {
         }
         return START_NOT_STICKY;
     }
-
-
-
-
 }

@@ -3,7 +3,6 @@ package com.example.myapplication;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 
 public class AlarmReceiver extends BroadcastReceiver {
 
@@ -30,6 +29,8 @@ public class AlarmReceiver extends BroadcastReceiver {
         // create an intent to the ringtone service
         if(intent.getExtras().getString("extra1") == null) {
             Intent notify = new Intent(context, AlarmNotification.class);
+            int temp = intent.getIntExtra("index", 0);
+            notify.putExtra("index", temp);
             main.startActivity(notify);
         }
         else{
@@ -49,7 +50,5 @@ public class AlarmReceiver extends BroadcastReceiver {
 
         // start the ringtone service
         //context.startService(service_intent);
-
     }
-
 }
