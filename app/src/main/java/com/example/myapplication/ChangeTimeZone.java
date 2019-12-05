@@ -124,5 +124,6 @@ public class ChangeTimeZone extends AppCompatActivity implements View.OnClickLis
             Log.d("TIMEZONE ", tz.getDisplayName());
         }
         App.setCalendar(calendar);
+        finish();
     }
 }

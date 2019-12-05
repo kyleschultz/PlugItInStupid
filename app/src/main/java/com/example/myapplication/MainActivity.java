@@ -295,7 +295,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         editor.apply();
         App.setSwitchedDisplays(true);
         Intent intent = getIntent();
-        //finish();
+        finish();
         startActivity(intent);
     }
 }
