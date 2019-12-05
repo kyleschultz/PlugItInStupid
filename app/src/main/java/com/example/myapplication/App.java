@@ -126,13 +126,13 @@ public class App extends Application {
             setMediaString("beat");
         } else if (song == "byob") {
             //mMediaPlayer = MediaPlayer.create(App.getContext(), R.raw.byob);
-            setMediaString("beat");
+            setMediaString("byob");
         } else if (song == "pieces") {
             //mMediaPlayer = MediaPlayer.create(App.getContext(), R.raw.pieces);
-            setMediaString("beat");
+            setMediaString("pieces");
         } else {
             //mMediaPlayer = MediaPlayer.create(App.getContext(), R.raw.toxicity);
-            setMediaString("beat");
+            setMediaString("toxicity");
         }
     }
 

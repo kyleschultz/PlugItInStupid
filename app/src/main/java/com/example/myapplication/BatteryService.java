@@ -58,14 +58,14 @@ public class BatteryService extends Service {
         // full battery
         if (percentage <= 15) {
             Log.d("Battery low", "battery low");
-            Intent stopService = new Intent(getApplicationContext(), BatteryService.class);
-            getApplicationContext().stopService(stopService);
+            Intent stopService = new Intent(App.getContext(), BatteryService.class);
+            App.getContext().stopService(stopService);
             Intent intent = new Intent(getBaseContext(), PlugItInActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            getApplication().startActivity(intent);
-            Intent serviceIntent = new Intent(getApplicationContext(),RingtoneService.class);
+            App.getContext().startActivity(intent);
+            Intent serviceIntent = new Intent(App.getContext(),RingtoneService.class);
             serviceIntent.putExtra("extra", "yes");
-            getApplicationContext().startService(serviceIntent);
+            App.getContext().startService(serviceIntent);
 
         }
         // do not forget to unregister

@@ -22,10 +22,10 @@ public class PlugItInActivity extends AppCompatActivity implements View.OnClickL
         if(v.getId() == R.id.alarmCheck){
             Intent serviceIntent = new Intent(getApplicationContext(),RingtoneService.class);
             serviceIntent.putExtra("extra", "no");
-            getApplicationContext().startService(serviceIntent);
-            Intent mActivity = new Intent(getApplicationContext(), MainActivity.class);
+            App.getContext().startService(serviceIntent);
+            Intent mActivity = new Intent(App.getContext(), MainActivity.class);
             mActivity.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            getApplicationContext().startActivity(mActivity);
+            App.getContext().startActivity(mActivity);
         }
     }
 }

@@ -57,6 +57,7 @@ public class RingtoneService extends Service {
                 .build();
 
         String state = intent.getExtras().getString("extra");
+        System.out.println("HERE" + isRunning + state);
         switch (state) {
             case "no":
                 startId = 0;
@@ -70,7 +71,6 @@ public class RingtoneService extends Service {
         }
         if(!this.isRunning && startId == 1){
             String s = App.getMediaString();
-            Uri uri;
 
             if(s == "beat"){
                 mediaPlayer.start();
@@ -90,7 +90,7 @@ public class RingtoneService extends Service {
             }
 
 
-            mNM.notify(0, mNotify);
+            //mNM.notify(0, mNotify);
             this.isRunning = true;
             this.startId = 0;
         }
@@ -98,25 +98,26 @@ public class RingtoneService extends Service {
             String s = App.getMediaString();
 
             if(s == "beat"){
-                mediaPlayer.stop();
-                mediaPlayer.reset();
+                mediaPlayer.pause();
+                mediaPlayer.seekTo(0);
 
             }
             else if(s == "byob"){
-                mediaPlayer2.stop();
-                mediaPlayer2.reset();
+                mediaPlayer2.pause();
+                mediaPlayer2.seekTo(0);
 
             }
             else if(s == "pieces"){
-                mediaPlayer3.stop();
-                mediaPlayer3.reset();
+                mediaPlayer3.pause();
+                mediaPlayer3.seekTo(0);
 
             }
             else{
-                mediaPlayer4.stop();
-                mediaPlayer4.reset();
+                mediaPlayer4.pause();
+                mediaPlayer4.seekTo(0);
 
             }
+
 
             this.isRunning = false;
             this.startId = 0;
