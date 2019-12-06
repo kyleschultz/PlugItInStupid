@@ -28,6 +28,7 @@
         android:layout_marginBottom="33dp"
         android:text="Select Ringtone"
         android:textSize="40sp"
+        android:textColor="@color/green"
         app:layout_constraintBottom_toTopOf="@+id/radioGroupMusic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -200,7 +200,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         textView_item_name.setText(text);
         textView_item_name.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
-        textView_item_name.setTextColor(Color.parseColor("#000000"));
+        textView_item_name.setTextColor(Color.parseColor("#4abf51"));
         // textView1.setBackgroundColor(0xff66ff66); // hex color 0xAARRGGBB
         //textView_item_name.setPadding(padding, padding, padding, padding);
 
