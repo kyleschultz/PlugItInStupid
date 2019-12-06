@@ -137,7 +137,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onSaveInstanceState(Bundle outState){
         // Save the values you need from your textview into "outSTate" -object
-//        outState.putParcelableArrayList("key", toDoList);
+        //outState.putParcelableArrayList("key", toDoList);
         super.onSaveInstanceState(outState);
         outState.putStringArrayList("key", views);
         System.out.println(views);
