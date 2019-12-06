@@ -11,8 +11,6 @@ import android.widget.TextView;
 
 import java.util.Locale;
 
-
-
 public class TimerScreen extends AppCompatActivity {
     private static final long START_TIME_IN_MILLIS = 600000;
 

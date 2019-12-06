@@ -94,7 +94,7 @@ public class ChangeTimeZone extends AppCompatActivity implements View.OnClickLis
         int selectedId = radioGroup.getCheckedRadioButtonId();
 
         if(selectedId == EST.getId()) {
-            calendar.setTimeZone(TimeZone.getTimeZone("US/East"));
+            calendar.setTimeZone(TimeZone.getTimeZone("US/Eastern"));
             TimeZone tz = calendar.getTimeZone();
             Log.d("TIMEZONE ", tz.getDisplayName());
         }
