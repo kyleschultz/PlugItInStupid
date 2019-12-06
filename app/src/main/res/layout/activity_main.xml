@@ -61,11 +61,11 @@
     <ImageView
         android:id="@+id/select_ringtone"
         android:layout_width="80dp"
-        android:layout_height="73dp"
+        android:layout_height="80dp"
         android:adjustViewBounds="false"
         android:src="@drawable/baseline_library_music_black_24dp"
-        android:visibility="visible"
         android:tint="@color/green"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.084"
@@ -73,18 +73,30 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.954" />
 
-    <LinearLayout
-        android:id="@+id/AlarmLayout"
+    <ScrollView
         android:layout_width="329dp"
         android:layout_height="373dp"
-        android:orientation="vertical"
-        android:scrollbarStyle="outsideOverlay"
-        android:scrollbars="vertical"
-        app:layout_constraintBottom_toBottomOf="@+id/addAlarm"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/appTitle"
-        app:layout_constraintVertical_bias="0.607" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.608">
+
+        <LinearLayout
+            android:id="@+id/AlarmLayout"
+            android:layout_width="329dp"
+            android:layout_height="373dp"
+            android:orientation="vertical"
+            android:scrollbarStyle="outsideOverlay"
+            android:scrollbars="vertical"
+            app:layout_constraintBottom_toBottomOf="@+id/addAlarm"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/appTitle"
+            app:layout_constraintVertical_bias="0.607">
+
+        </LinearLayout>
+    </ScrollView>
 
     <Switch
         android:id="@+id/switch1"
