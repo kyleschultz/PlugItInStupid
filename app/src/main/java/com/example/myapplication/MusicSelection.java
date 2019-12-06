@@ -1,14 +1,8 @@
 package com.example.myapplication;
 
-
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
-import android.content.Intent;
-
 import android.content.SharedPreferences;
-
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -55,26 +49,26 @@ public class MusicSelection extends AppCompatActivity implements View.OnClickLis
             public void onCheckedChanged(RadioGroup group, int checkedId) {
 
                 if(checkedId == R.id.musicButton1) {
-                    Toast t = Toast.makeText(getApplicationContext(), "beat it selected",
+                    Toast t = Toast.makeText(getApplicationContext(), "Beat It: Michael Jackson",
                             Toast.LENGTH_SHORT);
 
                     t.setGravity(Gravity.FILL_HORIZONTAL, 10, 1500);
                     t.show();
                 }
                 else if(checkedId == R.id.musicButton2) {
-                    Toast t = Toast.makeText(getApplicationContext(), "byob selected",
+                    Toast t = Toast.makeText(getApplicationContext(), "System of a Down: BYOB",
                             Toast.LENGTH_SHORT);
                     t.setGravity(Gravity.FILL_HORIZONTAL, 10, 1500);
                     t.show();
                 }
                 else if(checkedId == R.id.musicButton3) {
-                    Toast t = Toast.makeText(getApplicationContext(), "pieces selected",
+                    Toast t = Toast.makeText(getApplicationContext(), "Red: Pieces",
                             Toast.LENGTH_SHORT);
                     t.setGravity(Gravity.FILL_HORIZONTAL, 10, 1500);
                     t.show();
                 }
                 else if(checkedId == R.id.musicButton4) {
-                    Toast t = Toast.makeText(getApplicationContext(), "toxicity selected",
+                    Toast t = Toast.makeText(getApplicationContext(), "System of a Down: Toxicity",
                             Toast.LENGTH_SHORT);
                     t.setGravity(Gravity.FILL_HORIZONTAL, 10, 1500);
                     t.show();
@@ -86,38 +80,27 @@ public class MusicSelection extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
-
-
         int selectedId = radioGroup.getCheckedRadioButtonId();
 
         if(selectedId == r1.getId()) {
             App.createMediaPlayer("beat");
             App.setMediaString("beat");
-
-            System.out.println("IN BEAT IT IF STATEMENT");
         }
         if(selectedId == r2.getId()) {
             App.createMediaPlayer("byob");
             App.setMediaString("byob");
-
         }
         if(selectedId == r3.getId()) {
             App.createMediaPlayer("pieces");
             App.setMediaString("pieces");
-            System.out.println("IN PIECES IF STATEMENT");
-
         }
         if(selectedId == r4.getId()) {
             App.createMediaPlayer("toxic");
             App.setMediaString("toxic");
-
         }
-        //go back to the main activity screen
+        // Go back to the main activity screen
         if(v.getId() == R.id.saveButton){
-            System.out.println("IN SAVE BUTTON STATEMENT");
-            Intent myIntent = new Intent(this, MainActivity.class);
-            startActivity(myIntent);
+            finish();
         }
-
     }
 }

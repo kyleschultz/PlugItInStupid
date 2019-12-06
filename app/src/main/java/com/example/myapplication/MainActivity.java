@@ -1,27 +1,26 @@
 package com.example.myapplication;
 
-// Android imports
+// AppCompatActivity import
 import androidx.appcompat.app.AppCompatActivity;
 
-
+// Android imports
 import android.content.SharedPreferences;
+import android.content.Context;
+import android.content.Intent;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.graphics.Color;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.CompoundButton;
-import android.widget.ImageView;
-import android.content.Intent;
 import android.view.View;
-import android.content.Context;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.ImageView;
 
 import java.util.ArrayList;
 import android.icu.util.Calendar;
@@ -50,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(useDarkTheme) {
             setTheme(R.style.AppTheme_Dark_ActionBar);
         }
-        if(bService == null && App.getPlugItInCalled() == false){
+        if(bService == null && !App.getPlugItInCalled()){
             Intent batteryIntent = new Intent(this, BatteryService.class);
             startService(batteryIntent);
         }
@@ -60,7 +59,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         this.context = this;
         App.setContext(this.context);
         String song = App.getMediaString();
-        System.out.println("THE SONG BEING USED IS: "+ song);
         if(song == null){
             App.setMediaString("byob");
             App.createMediaPlayer("byob");
@@ -92,12 +90,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 toggleTheme(isChecked);
             }
         });
+        // Below accounts for adding an alarm to the UI and
+        // checks to see if the display was switched
         Intent fromAlarm = getIntent();
-        if(fromAlarm != null && fromAlarm.getExtras() != null && App.getSwitchedDisplays() == false){
+        if(fromAlarm != null && fromAlarm.getExtras() != null && !App.getSwitchedDisplays()){
             String timeValue = fromAlarm.getExtras().getString("time");
-            System.out.println(timeValue);
             views = App.getViews();
-            System.out.println("views" + views);
 
             if(views.size() != 0){
                 for(String str : views){
@@ -108,9 +106,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             addAlarmTextView(timeValue);
         }
         else {
-            System.out.println("switched displays" + App.getSwitchedDisplays());
             views = App.getViews();
-            System.out.println("views" + views);
 
             if (views.size() != 0) {
                 for (String str : views) {
@@ -127,7 +123,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onRestoreInstanceState(savedInstanceState);
 
         views = savedInstanceState.getStringArrayList("key");
-        System.out.println(views);
         // Add this for-loop to restoring your list
         for(String str : views){
             addAlarmTextView(str);
@@ -137,10 +132,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onSaveInstanceState(Bundle outState){
         // Save the values you need from your textview into "outSTate" -object
-        //outState.putParcelableArrayList("key", toDoList);
         super.onSaveInstanceState(outState);
         outState.putStringArrayList("key", views);
-        System.out.println(views);
 
     }
 
@@ -176,39 +169,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void addAlarmTextView(String time){
         //LinearLayout wrapper = findViewById(R.id.AlarmLayout);
         wrapper.addView(createATextView(ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT, RelativeLayout.ALIGN_PARENT_RIGHT,
-                time.toString(), 24));
+                ViewGroup.LayoutParams.WRAP_CONTENT, time, 24));
         App.addOnOff(true);
-        wrapper.addView(createSwitch(ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT, RelativeLayout.ALIGN_PARENT_RIGHT,
-                time.toString(), 24));
+        wrapper.addView(createSwitch());
 
 
     }
 
-    public TextView createATextView(int layout_widh, int layout_height, int align,
-                                    String text, int fontSize){
+    public TextView createATextView(int layout_widh, int layout_height, String text, int fontSize){
         TextView textView_item_name = new TextView(this);
         textView_item_name.setId(viewId);
         viewId++;
         RelativeLayout.LayoutParams _params = new RelativeLayout.LayoutParams(
                 layout_widh, layout_height);
 
-        //_params.setMargins(margin, margin, margin, margin);
-        //_params.addRule(align);
         textView_item_name.setLayoutParams(_params);
-
         textView_item_name.setText(text);
         textView_item_name.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
         textView_item_name.setTextColor(Color.parseColor("#4abf51"));
-        // textView1.setBackgroundColor(0xff66ff66); // hex color 0xAARRGGBB
-        //textView_item_name.setPadding(padding, padding, padding, padding);
 
         return textView_item_name;
     }
 
-    public Switch createSwitch(int layout_widh, int layout_height, int align,
-                               String text, int fontSize){
+    public Switch createSwitch(){
         final Switch onOff = new Switch(this);
         onOff.setId(switchId);
         final int tempId = switchId;
@@ -221,21 +204,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(!isChecked){
-                    //onOff.setChecked(false);
-                    System.out.println("Temp id" + tempId);
                     state = new OffState();
                     App.changeOnOffIndex(tempId, false);
                     App.getIntents().get(tempId).cancel();
                     state.handle(manager, App.getIntents().get(tempId), cal, true);
                 }
                 else{
-                    //onOff.setChecked(true);
                     cal = Calendar.getInstance();
                     state = new CreateState();
                     if(App.getDays().get(tempId).size() == 0){
                         String tempTime = App.getTimes().get(tempId);
                         String[] times = tempTime.split(":");
-                        //System.out.println(times[0] + times[1]);
                         int hour = Integer.parseInt(times[0]);
                         int minute = Integer.parseInt(times[1]);
                         cal.setTimeInMillis(System.currentTimeMillis());
@@ -244,7 +223,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         cal.set(Calendar.SECOND, 0);
                         cal.set(Calendar.MILLISECOND, 0);
                         if(System.currentTimeMillis() >= cal.getTimeInMillis()){
-                            System.out.println("Here");
                             cal.setTimeInMillis(86400000 + cal.getTimeInMillis());
                         }
                         App.changeOnOffIndex(tempId, true);
@@ -259,19 +237,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         ArrayList<Integer> tmpDays = App.getDays().get(tempId);
                         String tempTime = App.getTimes().get(tempId);
                         String[] times = tempTime.split(":");
-                        //System.out.println(times[0] + times[1]);
                         int hour = Integer.parseInt(times[0]);
                         int minute = Integer.parseInt(times[1]);
                         for(int i = 0; i < tmpDays.size(); i++){
                             cal.setTimeInMillis(System.currentTimeMillis());
                             cal.set(Calendar.DAY_OF_WEEK, tmpDays.get(i));
-                            //System.out.println(weekdays.get(i));
                             cal.set(Calendar.HOUR_OF_DAY, hour);
                             cal.set(Calendar.MINUTE, minute);
                             cal.set(Calendar.SECOND, 0);
                             cal.set(Calendar.MILLISECOND, 0);
                             if(cal.getTimeInMillis() < System.currentTimeMillis()) {
-                                System.out.println("Here2");
                                 cal.add(Calendar.DAY_OF_YEAR, 7);
                             }
                             App.changeOnOffIndex(tempId, true);
@@ -283,7 +258,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             state.handle(manager, pending, cal, true);
                         }
                     }
-
                 }
             }
         });

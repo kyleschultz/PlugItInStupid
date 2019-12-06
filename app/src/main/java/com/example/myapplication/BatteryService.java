@@ -15,7 +15,6 @@ public class BatteryService extends Service {
 
     @Override
     public IBinder onBind(Intent intent) {
-        // TODO: Return the communication channel to the service.
         throw new UnsupportedOperationException("Not yet implemented");
     }
 
@@ -28,7 +27,7 @@ public class BatteryService extends Service {
         boolean isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING ||
                 status == BatteryManager.BATTERY_STATUS_FULL;
         System.out.println("charging " + isCharging);
-        if(isCharging == false){
+        if(!isCharging){
             this.registerReceiver(this.batteryChangeReceiver,  ifilter);
         }
         return super.onStartCommand(intent, flags, startId);
@@ -38,7 +37,7 @@ public class BatteryService extends Service {
 
         @Override
         public void onReceive(final Context context, final Intent intent) {
-            if(App.getPlugItInCalled() == false) {
+            if(!App.getPlugItInCalled()) {
                 checkBatteryLevel(intent);
             }
         }

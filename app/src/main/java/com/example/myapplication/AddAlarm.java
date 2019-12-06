@@ -41,7 +41,7 @@ public class AddAlarm extends AppCompatActivity implements View.OnClickListener 
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_alarm);
-        tPicker = (TimePicker) findViewById(R.id.timePicker);
+        tPicker = findViewById(R.id.timePicker);
         if(App.getCalendar() == null){
             calendar = Calendar.getInstance();
         }
@@ -55,7 +55,7 @@ public class AddAlarm extends AppCompatActivity implements View.OnClickListener 
         button.setOnClickListener(this);
         TextView cancel = findViewById(R.id.textView2);
         cancel.setOnClickListener(this);
-        weekdays = new ArrayList<Integer>();
+        weekdays = new ArrayList<>();
         mBundle = new Bundle();
 
 
@@ -104,15 +104,6 @@ public class AddAlarm extends AppCompatActivity implements View.OnClickListener 
                 daysString = daysString + "S ";
             }
             System.out.println(tPicker.getCurrentHour() + ":" + tPicker.getCurrentMinute());
-            /*
-            calendar.setTimeInMillis(System.currentTimeMillis());
-
-            calendar.set(Calendar.HOUR_OF_DAY, tPicker.getCurrentHour());
-            calendar.set(Calendar.MINUTE, tPicker.getCurrentMinute());
-            calendar.set(Calendar.SECOND, 0);
-            calendar.set(Calendar.MILLISECOND, 0);
-            */
-            //System.out.println(this.context);
             this.state = new CreateState();
             boolean repeating = false;
             System.out.println(weekdays);
@@ -126,9 +117,7 @@ public class AddAlarm extends AppCompatActivity implements View.OnClickListener 
                     System.out.println("Here");
                     calendar.setTimeInMillis(86400000 + calendar.getTimeInMillis());
                 }
-                //if(calendar.getTimeInMillis() < System.currentTimeMillis()) {
-                //    calendar.add(Calendar.DAY_OF_YEAR, 7);
-                //}
+
                 Intent intent = new Intent(this.context, AlarmReceiver.class);
 
                 App.addDays(weekdays);
@@ -189,7 +178,7 @@ public class AddAlarm extends AppCompatActivity implements View.OnClickListener 
             if(hour == 12){
                 amPm = "pm";
             }
-            //alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pending);
+
             Intent main = new Intent(this, MainActivity.class);
             mBundle.putString("time", hour_string + ":" + minute_string + amPm + daysString);
             main.putExtras(mBundle);
@@ -199,10 +188,5 @@ public class AddAlarm extends AppCompatActivity implements View.OnClickListener 
             Intent myIntent = new Intent(this, MainActivity.class);
             startActivity(myIntent);
         }
-
-    }
-
-    public void setState(){
-        this.state = new CreateState();
     }
 }

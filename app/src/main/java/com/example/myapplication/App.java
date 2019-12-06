@@ -3,18 +3,10 @@ package com.example.myapplication;
 import android.app.Application;
 import android.app.PendingIntent;
 import android.content.Context;
-
-import java.io.IOException;
-import java.net.URI;
-import java.util.ArrayList;
-import android.icu.util.Calendar;
-
-import android.media.MediaMetadata;
-
 import android.widget.Switch;
 
-import android.media.MediaPlayer;
-import android.net.Uri;
+import java.util.ArrayList;
+import android.icu.util.Calendar;
 
 public class App extends Application {
 
@@ -31,7 +23,6 @@ public class App extends Application {
 
     private static Calendar calendar;
     public static String mediaString;
-
 
     public static Context getContext() {
         return context;
@@ -63,7 +54,6 @@ public class App extends Application {
         return calendar;
     }
 
-
     public static void addIntent(PendingIntent intent){
         alarms.add(intent);
     }
@@ -88,14 +78,6 @@ public class App extends Application {
         return days;
     }
 
-    public static ArrayList<Switch> getSwitches(){
-        return switches;
-    }
-
-    public static void addSwitch(Switch s){
-        switches.add(s);
-    }
-
     public static void addOnOff(boolean b){
         onOff.add(b);
     }
@@ -112,31 +94,24 @@ public class App extends Application {
         alarms.set(ind, intent);
     }
 
-
     public static void setMediaString(String s) {mediaString = s;}
 
     public static String getMediaString() {return mediaString;}
 
-
-
-
     public static void createMediaPlayer(String song) {
         if (song == "beat") {
-            //mMediaPlayer = MediaPlayer.create(App.getContext(), R.raw.beat_it);
             setMediaString("beat");
-        } else if (song == "byob") {
-            //mMediaPlayer = MediaPlayer.create(App.getContext(), R.raw.byob);
+        }
+        else if (song == "byob") {
             setMediaString("byob");
-        } else if (song == "pieces") {
-            //mMediaPlayer = MediaPlayer.create(App.getContext(), R.raw.pieces);
+        }
+        else if (song == "pieces") {
             setMediaString("pieces");
-        } else {
-            //mMediaPlayer = MediaPlayer.create(App.getContext(), R.raw.toxicity);
+        }
+        else {
             setMediaString("toxicity");
         }
     }
-
-
 
     public static boolean getSwitchedDisplays(){
         return switchedDisplays;
