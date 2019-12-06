@@ -96,32 +96,26 @@ public class ChangeTimeZone extends AppCompatActivity implements View.OnClickLis
         if(selectedId == EST.getId()) {
             calendar.setTimeZone(TimeZone.getTimeZone("US/Eastern"));
             TimeZone tz = calendar.getTimeZone();
-            Log.d("TIMEZONE ", tz.getDisplayName());
         }
         else if(selectedId == CST.getId()) {
             calendar.setTimeZone(TimeZone.getTimeZone("US/Central"));
             TimeZone tz = calendar.getTimeZone();
-            Log.d("TIMEZONE ", tz.getDisplayName());
         }
         else if(selectedId == MST.getId()) {
             calendar.setTimeZone(TimeZone.getTimeZone("US/Mountain"));
             TimeZone tz = calendar.getTimeZone();
-            Log.d("TIMEZONE ", tz.getDisplayName());
         }
         else if(selectedId == PST.getId()) {
             calendar.setTimeZone(TimeZone.getTimeZone("US/Pacific"));
             TimeZone tz = calendar.getTimeZone();
-            Log.d("TIMEZONE ", tz.getDisplayName());
         }
         else if(selectedId == AST.getId()) {
             calendar.setTimeZone(TimeZone.getTimeZone("US/Alaska"));
             TimeZone tz = calendar.getTimeZone();
-            Log.d("TIMEZONE ", tz.getDisplayName());
         }
         else if(selectedId == HST.getId()) {
             calendar.setTimeZone(TimeZone.getTimeZone("US/Aleutian"));
             TimeZone tz = calendar.getTimeZone();
-            Log.d("TIMEZONE ", tz.getDisplayName());
         }
         App.setCalendar(calendar);
         finish();
