@@ -23,10 +23,10 @@ public class AlarmNotification extends AppCompatActivity implements View.OnClick
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Listen for relevant objects
         setContentView(R.layout.activity_alarm_notification);
         Intent i = getIntent();
         indexofIntent = i.getIntExtra("index", 0);
-        System.out.println(indexofIntent);
         manager = (AlarmManager) getSystemService(ALARM_SERVICE);
         myIntent = new Intent(App.getContext(), AlarmReceiver.class);
         checkButton = findViewById(R.id.alarmCheck);
@@ -63,6 +63,7 @@ public class AlarmNotification extends AppCompatActivity implements View.OnClick
             sendBroadcast(myIntent);
 
         }
+        // If snoozed
         else if(v.getId() == R.id.snooze){
             myIntent.putExtra("extra", "no");
             myIntent.putExtra("extra1", "main");

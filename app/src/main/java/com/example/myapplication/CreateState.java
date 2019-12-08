@@ -8,8 +8,6 @@ import android.icu.util.Calendar;
 public class CreateState implements AlarmState {
     public void handle(AlarmManager manager, PendingIntent intent, Calendar calendar, boolean repeating) {
 
-        System.out.println(calendar.getTimeInMillis());
-        System.out.println(System.currentTimeMillis());
         if(repeating){
             manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),24 * 7 * 60 * 60 * 1000, intent);
         }

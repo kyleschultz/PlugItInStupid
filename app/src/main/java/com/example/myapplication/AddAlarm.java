@@ -33,6 +33,7 @@ public class AddAlarm extends AppCompatActivity implements View.OnClickListener 
     // 'Listen' for clicks
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Check for dark theme
         SharedPreferences preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         boolean useDarkTheme = preferences.getBoolean(PREF_DARK_THEME, false);
 
@@ -40,6 +41,7 @@ public class AddAlarm extends AppCompatActivity implements View.OnClickListener 
             setTheme(R.style.AppTheme_Dark_ActionBar);
         }
         super.onCreate(savedInstanceState);
+        // Set view to activity_add_alarm xml
         setContentView(R.layout.activity_add_alarm);
         tPicker = findViewById(R.id.timePicker);
         if(App.getCalendar() == null){
@@ -48,7 +50,7 @@ public class AddAlarm extends AppCompatActivity implements View.OnClickListener 
         else{
             calendar = App.getCalendar();
         }
-
+        // Listen for relevant objects
         alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         context = App.getContext();
         TextView button = findViewById(R.id.textView);
@@ -58,13 +60,12 @@ public class AddAlarm extends AppCompatActivity implements View.OnClickListener 
         weekdays = new ArrayList<>();
         mBundle = new Bundle();
 
-
     }
 
     @Override
     public void onClick(View v) {
+        // Depending on days selected, add alarm
         if(v.getId() == R.id.textView){
-            System.out.println("Clicked add");
             hour = tPicker.getCurrentHour();
             minute = tPicker.getCurrentMinute();
             String daysString = "         ";
@@ -103,10 +104,8 @@ public class AddAlarm extends AppCompatActivity implements View.OnClickListener 
                 weekdays.add(7);
                 daysString = daysString + "S ";
             }
-            System.out.println(tPicker.getCurrentHour() + ":" + tPicker.getCurrentMinute());
             this.state = new CreateState();
             boolean repeating = false;
-            System.out.println(weekdays);
             if (weekdays.size() == 0) {
                 calendar.setTimeInMillis(System.currentTimeMillis());
                 calendar.set(Calendar.HOUR_OF_DAY, tPicker.getCurrentHour());
@@ -114,7 +113,6 @@ public class AddAlarm extends AppCompatActivity implements View.OnClickListener 
                 calendar.set(Calendar.SECOND, 0);
                 calendar.set(Calendar.MILLISECOND, 0);
                 if(System.currentTimeMillis() >= calendar.getTimeInMillis()){
-                    System.out.println("Here");
                     calendar.setTimeInMillis(86400000 + calendar.getTimeInMillis());
                 }
 
@@ -135,13 +133,11 @@ public class AddAlarm extends AppCompatActivity implements View.OnClickListener 
                 for(int i = 0; i < weekdays.size(); i++){
                     calendar.setTimeInMillis(System.currentTimeMillis());
                     calendar.set(Calendar.DAY_OF_WEEK, weekdays.get(i));
-                    //System.out.println(weekdays.get(i));
                     calendar.set(Calendar.HOUR_OF_DAY, tPicker.getCurrentHour());
                     calendar.set(Calendar.MINUTE, tPicker.getCurrentMinute());
                     calendar.set(Calendar.SECOND, 0);
                     calendar.set(Calendar.MILLISECOND, 0);
                     if(calendar.getTimeInMillis() < System.currentTimeMillis()) {
-                        System.out.println("Here2");
                         calendar.add(Calendar.DAY_OF_YEAR, 7);
                     }
                     Intent intent = new Intent(this.context, AlarmReceiver.class);
