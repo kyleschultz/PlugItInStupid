@@ -19,19 +19,19 @@ public class MusicSelection extends AppCompatActivity implements View.OnClickLis
 
     private static final String PREFS_NAME = "prefs";
     private static final String PREF_DARK_THEME = "dark_theme";
-    // 'Listen' for clicks
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         SharedPreferences preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         boolean useDarkTheme = preferences.getBoolean(PREF_DARK_THEME, false);
-
+        // Check for dark theme
         if(useDarkTheme) {
             setTheme(R.style.AppTheme_Dark_ActionBar);
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_music_selection);
 
+        // 'Listen' for clicks
         b = findViewById(R.id.saveButton);
         b.setOnClickListener(this);
         r1 = findViewById(R.id.musicButton1);
@@ -81,7 +81,7 @@ public class MusicSelection extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onClick(View v) {
         int selectedId = radioGroup.getCheckedRadioButtonId();
-
+        // Set media player based on selection
         if(selectedId == r1.getId()) {
             App.createMediaPlayer("beat");
             App.setMediaString("beat");

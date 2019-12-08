@@ -26,7 +26,6 @@ public class BatteryService extends Service {
         int status = batteryStatus.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
         boolean isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING ||
                 status == BatteryManager.BATTERY_STATUS_FULL;
-        System.out.println("charging " + isCharging);
         if(!isCharging){
             this.registerReceiver(this.batteryChangeReceiver,  ifilter);
         }
