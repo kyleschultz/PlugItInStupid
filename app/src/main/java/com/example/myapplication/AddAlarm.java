@@ -30,7 +30,7 @@ public class AddAlarm extends AppCompatActivity implements View.OnClickListener 
 
     private static final String PREFS_NAME = "prefs";
     private static final String PREF_DARK_THEME = "dark_theme";
-    // 'Listen' for clicks
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // Check for dark theme
