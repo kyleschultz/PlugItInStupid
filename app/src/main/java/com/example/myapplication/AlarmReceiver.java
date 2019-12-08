@@ -9,9 +9,7 @@ public class AlarmReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        System.out.println("In receiver");
         String state = intent.getExtras().getString("extra");
-
         Context main = App.getContext();
 
         // create an intent to the AlarmNotification service
@@ -30,5 +28,9 @@ public class AlarmReceiver extends BroadcastReceiver {
         Intent serviceIntent = new Intent(context,RingtoneService.class);
         serviceIntent.putExtra("extra", state);
         context.startService(serviceIntent);
+<<<<<<< HEAD
+=======
+
+>>>>>>> edbd2ace33af058afd44b235ecfff15689d777b1
     }
 }

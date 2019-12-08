@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.icu.util.Calendar;
 import android.icu.util.TimeZone;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -15,13 +14,15 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 public class ChangeTimeZone extends AppCompatActivity implements View.OnClickListener{
+    // RadioGroup object
     private RadioGroup radioGroup;
-
+    // Used to check for dark theme
     private static final String PREFS_NAME = "prefs";
     private static final String PREF_DARK_THEME = "dark_theme";
-    // 'Listen' for clicks
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Check if dark theme is selected
         SharedPreferences preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         boolean useDarkTheme = preferences.getBoolean(PREF_DARK_THEME, false);
 
@@ -29,12 +30,15 @@ public class ChangeTimeZone extends AppCompatActivity implements View.OnClickLis
             setTheme(R.style.AppTheme_Dark_ActionBar);
         }
         super.onCreate(savedInstanceState);
+        // Set view to activity_change_time_zone xml
         setContentView(R.layout.activity_change_time_zone);
-
+        // Save button
         Button b = findViewById(R.id.saveButton);
+        // Listen for save button
         b.setOnClickListener(this);
-
+        // Listen for radio group
         radioGroup = findViewById(R.id.radioGroup6);
+        // Check to see which radio button is checked
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -82,7 +86,7 @@ public class ChangeTimeZone extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
-
+        // Object for each radio button
         RadioButton EST = findViewById(R.id.timeButton1);
         RadioButton CST = findViewById(R.id.timeButton2);
         RadioButton MST = findViewById(R.id.timeButton3);
@@ -92,7 +96,7 @@ public class ChangeTimeZone extends AppCompatActivity implements View.OnClickLis
 
         Calendar calendar = Calendar.getInstance();
         int selectedId = radioGroup.getCheckedRadioButtonId();
-
+        // Check to see which radio button is selected upon save
         if(selectedId == EST.getId()) {
             calendar.setTimeZone(TimeZone.getTimeZone("US/Eastern"));
             TimeZone tz = calendar.getTimeZone();
@@ -117,6 +121,7 @@ public class ChangeTimeZone extends AppCompatActivity implements View.OnClickLis
             calendar.setTimeZone(TimeZone.getTimeZone("US/Aleutian"));
             TimeZone tz = calendar.getTimeZone();
         }
+        // Set the calendar and finish
         App.setCalendar(calendar);
         finish();
     }

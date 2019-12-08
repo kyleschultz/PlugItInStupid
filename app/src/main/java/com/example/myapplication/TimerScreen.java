@@ -26,12 +26,12 @@ public class TimerScreen extends AppCompatActivity {
 
     private static final String PREFS_NAME = "prefs";
     private static final String PREF_DARK_THEME = "dark_theme";
-    // 'Listen' for clicks
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         SharedPreferences preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         boolean useDarkTheme = preferences.getBoolean(PREF_DARK_THEME, false);
-
+        // Check for dark theme
         if(useDarkTheme) {
             setTheme(R.style.AppTheme_Dark_ActionBar);
         }
@@ -42,7 +42,7 @@ public class TimerScreen extends AppCompatActivity {
 
         StartPause = findViewById(R.id.button);
         Reset = findViewById(R.id.button2);
-
+        // Listen for relevant objects 
         StartPause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
