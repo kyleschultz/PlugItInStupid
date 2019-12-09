@@ -16,4 +16,4 @@ The application supports toggling between UI themes and also features a countdow
 2) Open this application in Android Studio. 
 3) Go to Tools -> AVD Manager
 4) Select Pixel 2 XL API 29 as your emulator. 
-5) Click 'Run'. 
+5) Click green play button to run app. 
