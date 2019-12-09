@@ -20,6 +20,7 @@ public class AlarmNotification extends AppCompatActivity implements View.OnClick
     AlarmState state;
     Calendar cal;
     private int indexofIntent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +38,7 @@ public class AlarmNotification extends AppCompatActivity implements View.OnClick
 
     @Override
     public void onClick(View v) {
+        //if ok is pressed after the alarm goes off then turn off the media player and reset the calendar value to go off again in 24 hours
         if(v.getId() == R.id.alarmCheck){
             myIntent.putExtra("extra", "no");
             myIntent.putExtra("extra1", "main");
@@ -63,7 +65,7 @@ public class AlarmNotification extends AppCompatActivity implements View.OnClick
             sendBroadcast(myIntent);
 
         }
-        // If snoozed
+        // If snoozed then stop the media player and set the timer/calendar to 10 minutes
         else if(v.getId() == R.id.snooze){
             myIntent.putExtra("extra", "no");
             myIntent.putExtra("extra1", "main");
@@ -86,6 +88,7 @@ public class AlarmNotification extends AppCompatActivity implements View.OnClick
             App.setIntentAtIndex(indexofIntent, pending);
             App.setIds(App.getIds() + 1);
             state.handle(manager, pending, cal, false);
+            //send a toast to the user letting them know it will snooze for 10 minutes
             Toast t = Toast.makeText(getApplicationContext(), "Alarm Snoozed for 10 minutes",
                     Toast.LENGTH_SHORT);
             t.setGravity(Gravity.FILL_HORIZONTAL, 10, 1500);
