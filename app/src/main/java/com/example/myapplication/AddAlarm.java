@@ -150,7 +150,7 @@ public class AddAlarm extends AppCompatActivity implements View.OnClickListener 
                 // Add intent to list
                 App.addIntent(pending);
 
-                //
+                // Handle the alarm
                 App.setIds(App.getIds() + 1);
                 state.handle(alarmManager, pending, calendar, repeating);
             }
@@ -165,7 +165,7 @@ public class AddAlarm extends AppCompatActivity implements View.OnClickListener 
                     calendar.set(Calendar.MINUTE, tPicker.getCurrentMinute());
                     calendar.set(Calendar.SECOND, 0);
                     calendar.set(Calendar.MILLISECOND, 0);
-                    // if the day has past set it for a week from now
+                    // If the day has past set it for a week from now
                     if(calendar.getTimeInMillis() < System.currentTimeMillis()) {
                         calendar.add(Calendar.DAY_OF_YEAR, 7);
                     }
@@ -185,7 +185,7 @@ public class AddAlarm extends AppCompatActivity implements View.OnClickListener 
                     App.addIntent(pending);
                     // Increment ids
                     App.setIds(App.getIds() + 1);
-                    // handle the alarm
+                    // Handle the alarm
                     state.handle(alarmManager, pending, calendar, repeating);
                 }
             }
@@ -194,7 +194,7 @@ public class AddAlarm extends AppCompatActivity implements View.OnClickListener 
             String minute_string = String.valueOf(minute);
             String amPm = "";
 
-            // convert 24-hour time to 12-hour time
+            // Convert 24-hour time to 12-hour time
             if (hour > 12) {
                 hour_string = String.valueOf(hour - 12);
                 amPm = "pm";
