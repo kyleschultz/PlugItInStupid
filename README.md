@@ -1,8 +1,8 @@
 # PlugItInStupid
+#### NOTE: This repo contains both a png file of our UML diagram and a PDF write-up. 
 ## Team Members: Aaron Steiner, Kyle Schultz, Parikshit Bhetwal
 ### Language used: Java 
 ### Environment used: Android Studio 
-
 This project is an alarm clock application written for Android devices that is centered
 on reminding users to plug in their phone if the battery will discharge completely overnight. 
 Users are able to add alarms depending on which days they desire the alarm to function. 
