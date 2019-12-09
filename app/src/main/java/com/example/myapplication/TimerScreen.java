@@ -12,6 +12,7 @@ import android.widget.TextView;
 import java.util.Locale;
 
 public class TimerScreen extends AppCompatActivity {
+    //create all the variables needed for keeping track of the countdown
     private static final long START_TIME_IN_MILLIS = 600000;
 
     private TextView CountDown;
@@ -37,9 +38,9 @@ public class TimerScreen extends AppCompatActivity {
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timer_screen);
-
+        //set the countdown to the view
         CountDown = findViewById(R.id.text_view_countdown);
-
+        //set the start/pause button and the reset button to the proper button ids
         StartPause = findViewById(R.id.button);
         Reset = findViewById(R.id.button2);
         // Listen for relevant objects 
@@ -64,15 +65,18 @@ public class TimerScreen extends AppCompatActivity {
         updateText();
     }
 
+    //start the timer
     private void startTimer() {
         Timer = new CountDownTimer(TimeLeftInMillis, 1000) {
             @Override
+            //update the view with each second ticking down
             public void onTick(long millisUntilFinished) {
                 TimeLeftInMillis = millisUntilFinished;
                 updateText();
             }
 
             @Override
+            //when its finished reset the button to start again
             public void onFinish() {
                 Running = false;
                 StartPause.setText("Start");
@@ -85,21 +89,21 @@ public class TimerScreen extends AppCompatActivity {
         StartPause.setText("Pause");
         Reset.setVisibility(View.INVISIBLE);
     }
-
+    //pause the timer and set running to false
     private void pauseTimer() {
         Timer.cancel();
         Running = false;
         StartPause.setText("Start");
         Reset.setVisibility(View.VISIBLE);
     }
-
+    //reset the time to the original start time in millis
     private void resetTimer() {
         TimeLeftInMillis = START_TIME_IN_MILLIS;
         updateText();
         Reset.setVisibility(View.INVISIBLE);
         StartPause.setVisibility(View.VISIBLE);
     }
-
+    //keep the text on the screen updated for the user to see
     private void updateText() {
         int min = (int) (TimeLeftInMillis / 1000) / 60;
         int sec = (int) (TimeLeftInMillis / 1000) % 60;

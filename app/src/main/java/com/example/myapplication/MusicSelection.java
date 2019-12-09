@@ -13,12 +13,14 @@ import android.widget.Toast;
 
 public class MusicSelection extends AppCompatActivity implements View.OnClickListener{
 
+    //make the radio buttons and put them in a group so only one can be selected
     private RadioGroup radioGroup;
     private RadioButton r1, r2, r3, r4;
     private Button b;
 
     private static final String PREFS_NAME = "prefs";
     private static final String PREF_DARK_THEME = "dark_theme";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +49,7 @@ public class MusicSelection extends AppCompatActivity implements View.OnClickLis
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-
+                // show the user a toast based on what song they pick
                 if(checkedId == R.id.musicButton1) {
                     Toast t = Toast.makeText(getApplicationContext(), "Beat It: Michael Jackson",
                             Toast.LENGTH_SHORT);
