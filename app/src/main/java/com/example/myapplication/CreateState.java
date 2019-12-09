@@ -5,6 +5,7 @@ import android.app.PendingIntent;
 
 import android.icu.util.Calendar;
 
+// State pattern used here
 public class CreateState implements AlarmState {
     // Creates an alarm to go off at the given calendar time
     public void handle(AlarmManager manager, PendingIntent intent, Calendar calendar, boolean repeating) {

@@ -17,6 +17,7 @@ public class AlarmNotification extends AppCompatActivity implements View.OnClick
     private ImageView checkButton, snoozeButton;
     Intent myIntent;
     AlarmManager manager;
+    // State pattern used here
     AlarmState state;
     Calendar cal;
     private int indexofIntent;
@@ -58,6 +59,7 @@ public class AlarmNotification extends AppCompatActivity implements View.OnClick
             cal.set(Calendar.MINUTE, minute);
             cal.set(Calendar.SECOND, 0);
             cal.set(Calendar.MILLISECOND, 0);
+            // State pattern used here
             state = new CreateState();
             manager = (AlarmManager) getSystemService(ALARM_SERVICE);
             // add 24 hours
@@ -72,6 +74,7 @@ public class AlarmNotification extends AppCompatActivity implements View.OnClick
             App.setIntentAtIndex(indexofIntent, pending);
             App.setIds(App.getIds() + 1);
             // Handle the alarm
+            // State pattern used here
             state.handle(manager, pending, cal, false);
             // Turn off ringtone
             sendBroadcast(myIntent);
@@ -85,6 +88,7 @@ public class AlarmNotification extends AppCompatActivity implements View.OnClick
             // initialize AlarmManager
             manager = (AlarmManager) getSystemService(ALARM_SERVICE);
             // set the state
+            // State pattern used here
             state = new SnoozeState();
             cal = Calendar.getInstance();
             // Get the time the alarm was set
@@ -109,6 +113,7 @@ public class AlarmNotification extends AppCompatActivity implements View.OnClick
             App.setIntentAtIndex(indexofIntent, pending);
             App.setIds(App.getIds() + 1);
             // handle the snooze state
+            // State pattern used here
             state.handle(manager, pending, cal, false);
             //send a toast to the user letting them know it will snooze for 10 minutes
             Toast t = Toast.makeText(getApplicationContext(), "Alarm Snoozed for 10 minutes",

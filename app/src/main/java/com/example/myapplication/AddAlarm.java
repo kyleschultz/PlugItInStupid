@@ -22,6 +22,7 @@ public class AddAlarm extends AppCompatActivity implements View.OnClickListener 
     private int hour;
     private int minute;
     private Calendar calendar;
+    // State pattern used here
     private AlarmState state;
     AlarmManager alarmManager;
     Context context;
@@ -113,6 +114,7 @@ public class AddAlarm extends AppCompatActivity implements View.OnClickListener 
                 daysString = daysString + "S ";
             }
             // set the alarm state
+            // State pattern used here
             this.state = new CreateState();
             // No days selected
             boolean repeating = false;
@@ -152,6 +154,7 @@ public class AddAlarm extends AppCompatActivity implements View.OnClickListener 
 
                 // Handle the alarm
                 App.setIds(App.getIds() + 1);
+                // State pattern used here
                 state.handle(alarmManager, pending, calendar, repeating);
             }
             else{
@@ -185,7 +188,7 @@ public class AddAlarm extends AppCompatActivity implements View.OnClickListener 
                     App.addIntent(pending);
                     // Increment ids
                     App.setIds(App.getIds() + 1);
-                    // Handle the alarm
+                    // Handle the alarm, state pattern used here
                     state.handle(alarmManager, pending, calendar, repeating);
                 }
             }
