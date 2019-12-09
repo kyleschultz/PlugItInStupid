@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private int viewId = 0;
     private int switchId = 0;
     AlarmManager manager;
+    // State pattern used here
     AlarmState state;
     Calendar cal;
     private BatteryService bService;
@@ -208,15 +209,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(!isChecked){
-                    // If switched off
+                    // If switched off, state pattern used here
                     state = new OffState();
                     App.changeOnOffIndex(tempId, false);
                     App.getIntents().get(tempId).cancel();
-                    // Handle the alarm
+                    // Handle the alarm, state pattern used here
                     state.handle(manager, App.getIntents().get(tempId), cal, true);
                 }
                 else{
                     cal = Calendar.getInstance();
+                    // State pattern used here
                     state = new CreateState();
                     if(App.getDays().get(tempId).size() == 0){
                         // If the alarm was not set for multiple days
@@ -246,7 +248,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         App.setIds(App.getIds() + 1);
                         // Change the pending intent corresponding to the switches index
                         App.setIntentAtIndex(tempId, pending);
-                        // Handle the alarm
+                        // Handle the alarm, state pattern used here
                         state.handle(manager, pending, cal, false);
                     }
                     else{
@@ -280,7 +282,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             App.setIds(App.getIds() + 1);
                             // Change the intent at the index
                             App.setIntentAtIndex(tempId, pending);
-                            // Handle the alarm
+                            // Handle the alarm, state pattern used here
                             state.handle(manager, pending, cal, true);
                         }
                     }
