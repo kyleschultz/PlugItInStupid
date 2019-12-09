@@ -167,7 +167,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void addAlarmTextView(String time){
-        //LinearLayout wrapper = findViewById(R.id.AlarmLayout);
+        // Add a TextView and a Switch
         wrapper.addView(createATextView(ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT, time, 24));
         App.addOnOff(true);
@@ -177,12 +177,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public TextView createATextView(int layout_widh, int layout_height, String text, int fontSize){
+        // Create a TextView to add to the UI
         TextView textView_item_name = new TextView(this);
         textView_item_name.setId(viewId);
         viewId++;
         RelativeLayout.LayoutParams _params = new RelativeLayout.LayoutParams(
                 layout_widh, layout_height);
-
+        // Set params
         textView_item_name.setLayoutParams(_params);
         textView_item_name.setText(text);
         textView_item_name.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
@@ -192,75 +193,101 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public Switch createSwitch(){
+        // Create an on off switch
         final Switch onOff = new Switch(this);
         onOff.setId(switchId);
         final int tempId = switchId;
         switchId++;
         onOff.setText("On/Off");
+        // Get if it is on or off
         onOff.setChecked(App.getOnOffAtIndex(tempId));
+        // Match parents layout
         ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         onOff.setLayoutParams(lp);
         onOff.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(!isChecked){
+                    // If switched off
                     state = new OffState();
                     App.changeOnOffIndex(tempId, false);
                     App.getIntents().get(tempId).cancel();
+                    // Handle the alarm
                     state.handle(manager, App.getIntents().get(tempId), cal, true);
                 }
                 else{
                     cal = Calendar.getInstance();
                     state = new CreateState();
                     if(App.getDays().get(tempId).size() == 0){
+                        // If the alarm was not set for multiple days
                         String tempTime = App.getTimes().get(tempId);
+                        // Get the time
                         String[] times = tempTime.split(":");
                         int hour = Integer.parseInt(times[0]);
                         int minute = Integer.parseInt(times[1]);
+                        // Set the calendar time
                         cal.setTimeInMillis(System.currentTimeMillis());
                         cal.set(Calendar.HOUR_OF_DAY, hour);
                         cal.set(Calendar.MINUTE, minute);
                         cal.set(Calendar.SECOND, 0);
                         cal.set(Calendar.MILLISECOND, 0);
+                        // If it was set for the past add a day
                         if(System.currentTimeMillis() >= cal.getTimeInMillis()){
                             cal.setTimeInMillis(86400000 + cal.getTimeInMillis());
                         }
+                        // Change the switch in App
                         App.changeOnOffIndex(tempId, true);
+                        // Create a new intent for AlarmReceiver
                         Intent intent = new Intent(App.getContext(), AlarmReceiver.class);
+                        // Put extra for the Ringtone
                         intent.putExtra("extra", "yes");
+                        // Create the new PendingIntent
                         PendingIntent pending = PendingIntent.getBroadcast(App.getContext(), App.getIds(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
                         App.setIds(App.getIds() + 1);
+                        // Change the pending intent corresponding to the switches index
                         App.setIntentAtIndex(tempId, pending);
+                        // Handle the alarm
                         state.handle(manager, pending, cal, false);
                     }
                     else{
+                        // Alarm set for multiple days
                         ArrayList<Integer> tmpDays = App.getDays().get(tempId);
+                        // Get the time
                         String tempTime = App.getTimes().get(tempId);
                         String[] times = tempTime.split(":");
                         int hour = Integer.parseInt(times[0]);
                         int minute = Integer.parseInt(times[1]);
+                        // Set alarm for each day
                         for(int i = 0; i < tmpDays.size(); i++){
+                            // Set day and time of alarm
                             cal.setTimeInMillis(System.currentTimeMillis());
                             cal.set(Calendar.DAY_OF_WEEK, tmpDays.get(i));
                             cal.set(Calendar.HOUR_OF_DAY, hour);
                             cal.set(Calendar.MINUTE, minute);
                             cal.set(Calendar.SECOND, 0);
                             cal.set(Calendar.MILLISECOND, 0);
+                            // If day was in the past set it for 7 days from now
                             if(cal.getTimeInMillis() < System.currentTimeMillis()) {
                                 cal.add(Calendar.DAY_OF_YEAR, 7);
                             }
+                            // Change the switch to on
                             App.changeOnOffIndex(tempId, true);
+                            // Create an intent for alarm receiver
                             Intent intent = new Intent(App.getContext(), AlarmReceiver.class);
+                            // Put yes for ringtone service
                             intent.putExtra("extra", "yes");
                             PendingIntent pending = PendingIntent.getBroadcast(App.getContext(), App.getIds(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
                             App.setIds(App.getIds() + 1);
+                            // Change the intent at the index
                             App.setIntentAtIndex(tempId, pending);
+                            // Handle the alarm
                             state.handle(manager, pending, cal, true);
                         }
                     }
                 }
             }
         });
+        // Return the switch
         return onOff;
     }
     private void toggleTheme(boolean darkTheme) {

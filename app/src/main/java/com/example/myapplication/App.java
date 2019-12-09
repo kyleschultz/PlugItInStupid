@@ -8,6 +8,9 @@ import android.widget.Switch;
 import java.util.ArrayList;
 import android.icu.util.Calendar;
 
+/*
+    Class that keeps track of application state while it is running
+ */
 public class App extends Application {
 
     private static Context context;
