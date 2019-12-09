@@ -10,6 +10,7 @@ import android.os.IBinder;
 import androidx.annotation.Nullable;
 
 public class RingtoneService extends Service {
+    //create the media player instance for each song
     MediaPlayer mediaPlayer = MediaPlayer.create(App.getContext(), R.raw.beat_it);
     MediaPlayer mediaPlayer2 = MediaPlayer.create(App.getContext(), R.raw.byob);
     MediaPlayer mediaPlayer3 = MediaPlayer.create(App.getContext(), R.raw.pieces);
@@ -26,7 +27,7 @@ public class RingtoneService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int sId)
     {
-
+        //set the id based on what the state from the extras passed in from the instance indicate
         String state = intent.getExtras().getString("extra");
         switch (state) {
             case "no":
@@ -39,6 +40,8 @@ public class RingtoneService extends Service {
                 startId = 0;
                 break;
         }
+        //if the media player isn't running and the id is 1 then get the ringtone that was selected
+        //based on the string value play that song
         if(!this.isRunning && startId == 1){
             String s = App.getMediaString();
 
@@ -61,6 +64,7 @@ public class RingtoneService extends Service {
             this.isRunning = true;
             this.startId = 0;
         }
+        //if the media player is running get the ringtone string and pause the music, seek to the beginning for the next play
         else{
             String s = App.getMediaString();
 
